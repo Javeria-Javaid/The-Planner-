@@ -1,0 +1,87 @@
+body{
+
+  background: radial-gradient(circle, #a5a5a5 20%, rgba(136, 136, 136, 0.5) 115%, rgba(243, 229, 229, 0.9) 100%);
+  font-family: 'Playfair Display', serif;
+  color: #4d4747;
+  font-style: italic;
+
+}
+.menu_bar{
+  background-color: #8f807a;
+  height: 60px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  padding: 10px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  padding-top: 40px;
+}
+.menu-items{
+  text-align: center;
+
+}
+.menu_bar a {
+  text-decoration: none;
+  color: #4d4747;
+  padding: 17px;
+  font-size: 18px;
+}
+.menu_bar a:hover {
+  text-decoration: underline;
+
+}
+.dropdown{
+  position:relative;
+  display: inline-block;
+}
+.dropdown-content{
+  display:none;
+  position:absolute;
+  background-color:#f9f9f9;
+  min-width:150px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  margin-top: 8px;
+  text-align: left;
+}
+.dropdown-content a{
+  display:block;
+  padding: 12px;
+  color:black;
+  text-decoration:none;
+}
+.dropdown-content a:hover{
+  background-color:#ddd;
+}
+.dropdown:hover .dropdown-content{
+
+  display: block;
+}
+.tabcontent{
+  display:none;
+  padding:20px;
+  margin-top:20px;
+}
+.tabcontent.active{
+  display:block;
+}
+.main-container p{
+  font-style: italic;
+  text-align: center;
+
+}
+.container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.main_container{
+  width: 50%;
+  font-family: "Times New Roman";
+  font-style: italic;
+  font-size: 22px;
+  padding-top: 320px;
+  text-align: center;
+}
