@@ -13,13 +13,13 @@
     <div class="dropdown">
       <a href="#" class="dropbtn">Planner</a>
       <div class="dropdown-content">
-        <a href="#" onclick="openTab(event,'Daily')">Daily Planner</a>
+        <a href="daily_planner.html" onclick="openTab(event,'Daily')">Daily Planner</a>
         <a href="#" onclick="openTab(event,'Weekly')">Weekly Planner</a>
         <a href="#" onclick="openTab(event,'Monthly')">Monthly Planner</a>
       </div>
     </div>
-    <a href="#">Notes</a>
-    <a href="#">About us</a>
+    <a href="#">Journal</a>
+    <a href="About.html">About</a>
     <a href="contact.html">Contact</a>
   </div>
 
@@ -28,10 +28,12 @@
 
 <div class="wrapper">
 <div class="contact-section">
+  <div class="txt">
 <h2>
   Have a question, suggestion, or just want to say hi? Fill out the form below.
 
 </h2>
+  </div>
 <form class="contact-form">
   <div class="form-group">
   <label for="name" >Name:</label>
@@ -70,6 +72,16 @@
 </div>
 </div>
 
+  <script>
+    const links = document.querySelectorAll('.menu_bar a');
+    const currentURL = window.location.href;
+
+    links.forEach(link => {
+      if (link.href === currentURL) {
+        link.classList.add('active');
+      }
+    });
+  </script>
 
 </body>
 </html>

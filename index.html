@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Planner</title>
+  <title>Home</title>
   <link rel="stylesheet" href="index.css" >
 </head>
 <body>
@@ -13,13 +13,13 @@
     <div class="dropdown">
     <a href="#" class="dropbtn">Planner</a>
       <div class="dropdown-content">
-      <a href="#" onclick="openTab(event,'Daily')">Daily Planner</a>
+      <a href="daily_planner.html" onclick="openTab(event,'Daily')">Daily Planner</a>
       <a href="#" onclick="openTab(event,'Weekly')">Weekly Planner</a>
       <a href="#" onclick="openTab(event,'Monthly')">Monthly Planner</a>
     </div>
     </div>
-    <a href="#">Notes</a>
-    <a href="#">About us</a>
+    <a href="#">Journal</a>
+    <a href="About.html">About</a>
     <a href="contact.html">Contact</a>
   </div>
 
@@ -28,21 +28,9 @@
 
 <div class="main_container">
 
-<p>A space to capture your thoughts, organize your days, and bring clarity to your journey.</p>
+  <div id="typing" class="typing-text" >
 </div>
-  <div id="Daily" class="tabcontent">
-    <h2>Daily Planner</h2>
-    <p>This is your Day Planner</p>
-  </div>
-  <div id="Weekly" class="tabcontent">
-    <h2>Weekly Planner</h2>
-    <p>This is your Weekly Planner</p>
-  </div>
 
-  <div id="Monthly" class="tabcontent">
-    <h2>Monthly Planner</h2>
-    <p>This is your Monthly Planner</p>
-  </div>
 </div>
 <script>
   function openTab(evt, tabName) {
@@ -56,6 +44,38 @@
   event.preventDefault();
   }
 
+
 </script>
+
+<script>
+  const links = document.querySelectorAll('.menu_bar a');
+  const currentURL = window.location.href;
+
+  links.forEach(link => {
+    if (link.href === currentURL) {
+      link.classList.add('active');
+    }
+  });
+</script>
+
+<script>
+  const text = `A space to capture your thoughts, organize your days, and bring clarity to your journey.`;
+
+  let i = 0;
+  const speed = 25; // Typing speed (ms)
+  const container = document.getElementById("typing");
+
+  function typeWriter() {
+    if (i < text.length) {
+      container.innerHTML += text.charAt(i);
+      i++;
+      setTimeout(typeWriter, speed);
+    }
+  }
+
+  window.onload = typeWriter;
+</script>
+
+
 </body>
 </html>

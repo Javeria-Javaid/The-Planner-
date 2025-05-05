@@ -1,13 +1,13 @@
 body{
 
-  background: radial-gradient(circle, #a5a5a5 20%, rgba(136, 136, 136, 0.5) 115%, rgba(243, 229, 229, 0.9) 100%);
+background: radial-gradient(circle, #a5a5a5 20%, rgba(136, 136, 136, 0.5) 115%, rgba(243, 229, 229, 0.9) 100%);
   font-family: 'Playfair Display', serif;
   color: #4d4747;
   font-style: italic;
 
 }
 .menu_bar{
-  background-color: #8f807a;
+  background: linear-gradient(135deg, #8f807a, #b1a49d);
   height: 60px;
   width: 100%;
   position: fixed;
@@ -15,7 +15,7 @@ body{
   left: 0;
   z-index: 1000;
   padding: 10px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
   padding-top: 40px;
 }
 .menu-items{
@@ -31,6 +31,10 @@ body{
 .menu_bar a:hover {
   text-decoration: underline;
 
+}
+.menu_bar a.active {
+  text-decoration: underline;
+  font-weight: bold;
 }
 .dropdown{
   position:relative;
@@ -84,4 +88,18 @@ body{
   font-size: 22px;
   padding-top: 320px;
   text-align: center;
+}
+.typing-container {
+  font-size: 18px;
+  white-space: pre-wrap;
+  border-right: 2px solid black;
+  display: inline-block;
+  animation: blink-caret 0.75s step-end infinite;
+  max-width: 80%;
+  margin: 40px;
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent; }
+  50% { border-color: black; }
 }

@@ -2,16 +2,74 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>About us</title>
+  <title>About</title>
+  <link rel="stylesheet" href="About.css">
 </head>
 <body>
-<div class="intro">
+<div class="menu_bar">
+  <div class="menu-items">
+    <a href="index.html">Home</a>
+    <div class="dropdown">
+      <a href="#" class="dropbtn">Planner</a>
+      <div class="dropdown-content">
+        <a href="daily_planner.html" onclick="openTab(event,'Daily')">Daily Planner</a>
+        <a href="#" onclick="openTab(event,'Weekly')">Weekly Planner</a>
+        <a href="#" onclick="openTab(event,'Monthly')">Monthly Planner</a>
+      </div>
+    </div>
+    <a href="#">Journal</a>
+    <a href="About.html">About</a>
+    <a href="contact.html">Contact</a>
+  </div>
 
-</div>
 
 
 
+
+         <div class="slide">
+           <div id="typing" class="typing-text" >
+
+           </div>
+           <!--
+           <p >
+              This planner was born from my own struggle to stay organized while juggling studies, projects, and personal growth.
+             I wanted to build something that not only keeps me on track but feels futuristic and fun to use.
+             It is designed to help individuals who face similar challenges in managing their academic, professional, and personal lives. My ultimate aim is to create a tool that not only enhances productivity but also feels modern, engaging, and enjoyable to use..</p>
+         -->
+         </div>
+
+   <script>
+     const links = document.querySelectorAll('.menu_bar a');
+     const currentURL = window.location.href;
+
+     links.forEach(link => {
+       if (link.href === currentURL) {
+         link.classList.add('active');
+       }
+     });
+   </script>
+
+  <script>
+    const text = `This planner was born from my own struggle to stay organized while juggling studies,
+     projects, and personal growth. I wanted to build something that not only keeps me on track but feels futuristic and fun to use.
+     It is designed to help individuals who face similar challenges in managing their academic, professional, and personal lives.
+     My ultimate aim is to create a tool that not only enhances productivity but also feels modern, engaging, and enjoyable to use.`;
+
+    let i = 0;
+    const speed = 25; // Typing speed (ms)
+    const container = document.getElementById("typing");
+
+    function typeWriter() {
+      if (i < text.length) {
+        container.innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typeWriter, speed);
+      }
+    }
+
+    window.onload = typeWriter;
+  </script>
 
 
 </body>
-</html>
+ </html>
