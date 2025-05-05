@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Daily Planner</title>
+  <link rel="stylesheet" href="daily_planner.css">
+</head>
+<body>
+
+<!-- ==================== MENU BAR ==================== -->
+<div class="menu_bar">
+  <div class="menu-items">
+    <a href="index.html">Home</a>
+    <a href="daily_planner.html">Daily Planner</a>
+    <a href="#">Journal</a>
+    <a href="About.html">About</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</div>
+<!-- ==================== END MENU BAR ==================== -->
+
+
+<!-- ==================== MAIN CONTAINER ==================== -->
+<div class="container">
+
+  <!-- ==================== DATE CONTAINER ==================== -->
+  <div class="date_container">
+    <div class="date-txt">
+      Today is <span id="date-display" class="date-display"></span>
+    </div>
+  </div>
+  <!-- ==================== END DATE CONTAINER ==================== -->
+
+
+  <!-- ==================== WRAPPER ==================== -->
+  <div class="wrapper">
+
+    <!-- ==================== SCHEDULE CONTAINER ==================== -->
+    <div class="schedule_container">
+      <div class="planner">
+
+        <!-- Schedule Section -->
+        <div class="schedule-section">
+          <h2>SCHEDULE</h2>
+
+          <!-- Schedule Header -->
+          <div class="schedule-header">
+            <div class="time-txt">TIME</div>
+            <div class="activity-txt">ACTIVITY</div>
+          </div>
+
+          <!-- Schedule Items -->
+          <div class="schedule-items">
+            <!-- Pre-populated schedule items -->
+            <div class="schedule-item">
+              <input type="time" class="time-input" value="08:00">
+              <input type="text" class="activity-input" placeholder="Enter activity...">
+              <button class="delete-btn">×</button>
+            </div>
+
+            <div class="schedule-item">
+              <input type="time" class="time-input" value="09:00">
+              <input type="text" class="activity-input" placeholder="Enter activity...">
+              <button class="delete-btn">×</button>
+            </div>
+
+            <div class="schedule-item">
+              <input type="time" class="time-input" value="10:00">
+              <input type="text" class="activity-input" placeholder="Enter activity...">
+              <button class="delete-btn">×</button>
+            </div>
+
+            <div class="schedule-item">
+              <input type="time" class="time-input" value="11:00">
+              <input type="text" class="activity-input" placeholder="Enter activity...">
+              <button class="delete-btn">×</button>
+            </div>
+
+            <div class="schedule-item">
+              <input type="time" class="time-input" value="12:00">
+              <input type="text" class="activity-input" placeholder="Enter activity...">
+              <button class="delete-btn">×</button>
+            </div>
+
+            <div class="schedule-item">
+              <input type="time" class="time-input" value="13:00">
+              <input type="text" class="activity-input" placeholder="Enter activity...">
+              <button class="delete-btn">×</button>
+            </div>
+
+            <div class="schedule-item">
+              <input type="time" class="time-input" value="18:00">
+              <input type="text" class="activity-input" placeholder="Enter activity...">
+              <button class="delete-btn">×</button>
+            </div>
+
+            <div class="schedule-item">
+              <input type="time" class="time-input" value="19:00">
+              <input type="text" class="activity-input" placeholder="Enter activity...">
+              <button class="delete-btn">×</button>
+            </div>
+          </div>
+
+          <!-- Add Task Button -->
+          <button class="add-btn">+ Add Task</button>
+        </div>
+      </div>
+    </div>
+    <!-- ==================== END SCHEDULE CONTAINER ==================== -->
+
+
+    <!-- ==================== TO-DO LIST CONTAINER ==================== -->
+    <div class="todo-list">
+      <h1>TO DO LIST</h1>
+
+      <!-- Tasks Container -->
+      <div class="tasks-container" id="tasks-container">
+        <!-- Pre-populated to-do items -->
+        <div class="task-item">
+          <input type="checkbox" class="task-checkbox">
+          <span class="task-text"></span>
+          <button class="delete-btn">×</button>
+        </div>
+
+        <div class="task-item">
+          <input type="checkbox" class="task-checkbox">
+          <span class="task-text"></span>
+          <button class="delete-btn">×</button>
+        </div>
+
+        <div class="task-item">
+          <input type="checkbox" class="task-checkbox">
+          <span class="task-text"></span>
+          <button class="delete-btn">×</button>
+        </div>
+
+        <div class="task-item">
+          <input type="checkbox" class="task-checkbox">
+          <span class="task-text"></span>
+          <button class="delete-btn">×</button>
+        </div>
+
+        <div class="task-item">
+          <input type="checkbox" class="task-checkbox">
+          <span class="task-text"></span>
+          <button class="delete-btn">×</button>
+        </div>
+
+        <div class="task-item">
+          <input type="checkbox" class="task-checkbox">
+          <span class="task-text"></span>
+          <button class="delete-btn">×</button>
+        </div>
+
+        <div class="task-item">
+          <input type="checkbox" class="task-checkbox">
+          <span class="task-text"></span>
+          <button class="delete-btn">×</button>
+        </div>
+
+        <div class="task-item">
+          <input type="checkbox" class="task-checkbox">
+          <span class="task-text"></span>
+          <button class="delete-btn">×</button>
+        </div>
+      </div>
+
+      <!-- Add Task Input -->
+      <div class="input-container">
+        <input type="text" id="new-task" placeholder="Enter a new task">
+        <button id="add-btn">Add Task</button>
+      </div>
+    </div>
+    <!-- ==================== END TO-DO LIST CONTAINER ==================== -->
+
+  </div>
+  <!-- ==================== END WRAPPER ==================== -->
+
+</div>
+<!-- ==================== END MAIN CONTAINER ==================== -->
+
+
+<div class="wrapper">
+  <div class="notes_container"> <!-- notes_container start -->
+    
+  </div> <!-- notes_container end -->
+</div>
+
+
+
+
+<!-- ==================== SCRIPTS ==================== -->
+<script>
+  // Display current date
+  const date = new Date();
+  const formattedDate = new Intl.DateTimeFormat('en-US', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  }).format(date);
+  document.getElementById('date-display').textContent = formattedDate;
+
+  // Highlight active menu item
+  const links = document.querySelectorAll('.menu_bar a');
+  const currentURL = window.location.href;
+  links.forEach(link => {
+    if (link.href === currentURL) {
+      link.classList.add('active');
+    }
+  });
+
+  // Schedule section functionality
+  document.querySelector('.add-btn').addEventListener('click', () => {
+    const scheduleItems = document.querySelector('.schedule-items');
+    const newItem = document.createElement('div');
+    newItem.className = 'schedule-item';
+    newItem.innerHTML = `
+                <input type="time" class="time-input" value="14:00">
+                <input type="text" class="activity-input" placeholder="Enter activity...">
+                <button class="delete-btn">×</button>
+            `;
+    scheduleItems.appendChild(newItem);
+
+    // Add delete functionality
+    newItem.querySelector('.delete-btn').addEventListener('click', () => {
+      scheduleItems.removeChild(newItem);
+    });
+  });
+
+  // Add delete functionality to existing schedule items
+  document.querySelectorAll('.schedule-item .delete-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      this.parentElement.remove();
+    });
+  });
+
+  // To-Do List functionality
+  document.addEventListener('DOMContentLoaded', function() {
+    const taskInput = document.getElementById('new-task');
+    const addButton = document.getElementById('add-btn');
+    const tasksContainer = document.getElementById('tasks-container');
+
+    // Function to add a new task
+    function addTask() {
+      const taskText = taskInput.value.trim();
+      if (taskText) {
+        // First try to fill empty slots
+        const emptySlots = document.querySelectorAll('.task-item .task-text:empty');
+        if (emptySlots.length > 0) {
+          emptySlots[0].textContent = taskText;
+        } else {
+          // If no empty slots, create new task
+          createTaskElement(taskText);
+        }
+        taskInput.value = '';
+        taskInput.focus();
+      }
+    }
+
+    // Function to create new task element
+    function createTaskElement(text) {
+      const taskItem = document.createElement('div');
+      taskItem.className = 'task-item';
+
+      const checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+      checkbox.className = 'task-checkbox';
+
+      const taskSpan = document.createElement('span');
+      taskSpan.className = 'task-text';
+      taskSpan.textContent = text;
+
+      const deleteBtn = document.createElement('button');
+      deleteBtn.className = 'delete-btn';
+      deleteBtn.textContent = '×';
+
+      taskItem.appendChild(checkbox);
+      taskItem.appendChild(taskSpan);
+      taskItem.appendChild(deleteBtn);
+      tasksContainer.appendChild(taskItem);
+
+      // Add event listeners
+      checkbox.addEventListener('change', function() {
+        taskSpan.classList.toggle('completed', this.checked);
+      });
+
+      deleteBtn.addEventListener('click', function() {
+        // Clear instead of delete for pre-added slots
+        if (tasksContainer.children.length > 5) {
+          tasksContainer.removeChild(taskItem);
+        } else {
+          taskSpan.textContent = '';
+          checkbox.checked = false;
+          taskSpan.classList.remove('completed');
+        }
+      });
+    }
+
+    // Initialize event listeners for pre-added tasks
+    document.querySelectorAll('.task-item').forEach(item => {
+      const checkbox = item.querySelector('.task-checkbox');
+      const taskSpan = item.querySelector('.task-text');
+      const deleteBtn = item.querySelector('.delete-btn');
+
+      checkbox.addEventListener('change', function() {
+        taskSpan.classList.toggle('completed', this.checked);
+      });
+
+      deleteBtn.addEventListener('click', function() {
+        taskSpan.textContent = '';
+        checkbox.checked = false;
+        taskSpan.classList.remove('completed');
+      });
+    });
+
+    // Event listeners for adding tasks
+    addButton.addEventListener('click', addTask);
+    taskInput.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        addTask();
+      }
+    });
+
+    // Focus the input field on page load
+    taskInput.focus();
+  });
+</script>
+<!-- ==================== END SCRIPTS ==================== -->
+
+</body>
+</html>
