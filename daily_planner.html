@@ -89,13 +89,53 @@
             </div>
 
             <div class="schedule-item">
+              <input type="time" class="time-input" value="14:00">
+              <input type="text" class="activity-input" placeholder="Enter activity...">
+              <button class="delete-btn">×</button>
+            </div>
+            <div class="schedule-item">
+              <input type="time" class="time-input" value="15:00">
+              <input type="text" class="activity-input" placeholder="Enter activity...">
+              <button class="delete-btn">×</button>
+            </div>
+            <div class="schedule-item">
+              <input type="time" class="time-input" value="16:00">
+              <input type="text" class="activity-input" placeholder="Enter activity...">
+              <button class="delete-btn">×</button>
+            </div>
+            <div class="schedule-item">
+              <input type="time" class="time-input" value="17:00">
+              <input type="text" class="activity-input" placeholder="Enter activity...">
+              <button class="delete-btn">×</button>
+            </div>
+            <div class="schedule-item">
               <input type="time" class="time-input" value="18:00">
+              <input type="text" class="activity-input" placeholder="Enter activity...">
+              <button class="delete-btn">×</button>
+            </div>
+            <div class="schedule-item">
+              <input type="time" class="time-input" value="19:00">
+              <input type="text" class="activity-input" placeholder="Enter activity...">
+              <button class="delete-btn">×</button>
+            </div>
+            <div class="schedule-item">
+              <input type="time" class="time-input" value="20:00">
+              <input type="text" class="activity-input" placeholder="Enter activity...">
+              <button class="delete-btn">×</button>
+            </div>
+            <div class="schedule-item">
+              <input type="time" class="time-input" value="21:00">
+              <input type="text" class="activity-input" placeholder="Enter activity...">
+              <button class="delete-btn">×</button>
+            </div>
+            <div class="schedule-item">
+              <input type="time" class="time-input" value="22:00">
               <input type="text" class="activity-input" placeholder="Enter activity...">
               <button class="delete-btn">×</button>
             </div>
 
             <div class="schedule-item">
-              <input type="time" class="time-input" value="19:00">
+              <input type="time" class="time-input" value="23:00">
               <input type="text" class="activity-input" placeholder="Enter activity...">
               <button class="delete-btn">×</button>
             </div>
@@ -106,6 +146,30 @@
         </div>
       </div>
     </div>
+
+    <div class="meal-section">
+      <h2>MEAL</h2>
+      <div class="meal-categories">
+        <!-- Breakfast -->
+        <div class="meal-category">
+          <h3>Breakfast</h3>
+          <input type="text" class="meal-input" id="breakfast-input" placeholder="What did you eat?">
+        </div>
+
+        <!-- Lunch -->
+        <div class="meal-category">
+          <h3>Lunch</h3>
+          <input type="text" class="meal-input" id="lunch-input" placeholder="What did you eat?">
+        </div>
+
+        <!-- Dinner -->
+        <div class="meal-category">
+          <h3>Dinner</h3>
+          <input type="text" class="meal-input" id="dinner-input" placeholder="What did you eat?">
+        </div>
+      </div>
+    </div>
+
     <!-- ==================== END SCHEDULE CONTAINER ==================== -->
 
 
@@ -180,12 +244,21 @@
 <!-- ==================== END MAIN CONTAINER ==================== -->
 
 
-<div class="wrapper">
+<div class="wrapper"><!-- wrapper starts -->
+  <div class="container"> <!-- container starts -->
   <div class="notes_container"> <!-- notes_container start -->
-    
-  </div> <!-- notes_container end -->
+    <h2 class="notes-title">Notes</h2>
+    <textarea class="notes-content" id="notes-textarea" placeholder="Write your thoughts, reminders, or ideas here...">
+
+    </textarea>
+<div class="notes-action">
+  <button class="save-btn" id="save-notes">Save Notes</button>
+  <span class="save-status" id="save-status"></span>
 </div>
 
+  </div> <!-- notes_container end -->
+</div> <!-- wrapper end -->
+</div> <!-- container end -->
 
 
 
@@ -326,6 +399,41 @@
     taskInput.focus();
   });
 </script>
+
+<script>
+  // Your existing JavaScript code
+
+  // NEW NOTES FUNCTIONALITY
+  document.addEventListener('DOMContentLoaded', function() {
+    // Get notes elements
+    const notesTextarea = document.getElementById('notes-textarea');
+    const saveBtn = document.getElementById('save-notes');
+    const saveStatus = document.getElementById('save-status');
+
+    // Load saved notes
+    const savedNotes = localStorage.getItem('dailyPlannerNotes');
+    if (savedNotes) {
+      notesTextarea.value = savedNotes;
+    }
+
+    // Save notes functionality
+    saveBtn.addEventListener('click', function() {
+      localStorage.setItem('dailyPlannerNotes', notesTextarea.value);
+      saveStatus.textContent = "Notes saved successfully!";
+
+      // Clear status after 2 seconds
+      setTimeout(function() {
+        saveStatus.textContent = "";
+      }, 2000);
+    });
+
+    // Optional: Auto-save every 30 seconds
+    setInterval(function() {
+      localStorage.setItem('dailyPlannerNotes', notesTextarea.value);
+    }, 30000);
+  });
+</script>
+
 <!-- ==================== END SCRIPTS ==================== -->
 
 </body>
