@@ -222,7 +222,7 @@
 
             <div class="meal-category"><!-- meal Category starts  -->
               <h3>Breakfast</h3>
-              <input type="text" class="meal-input" id="breakfast-input" placeholder="What did you eat?">
+              <input type="text" class="meal-input" id="breakfast-input" placeholder="Type here.....">
             </div>
           </div><!-- meal Category ends -->
         </div><!-- Breakfast end>
@@ -231,13 +231,13 @@
       <-- Lunch -->
         <div class="meal-category">
           <h3>Lunch</h3>
-          <input type="text" class="meal-input" id="lunch-input" placeholder="What did you eat?">
+          <input type="text" class="meal-input" id="lunch-input" placeholder="Type here.....">
         </div>
 
         <!-- Dinner -->
         <div class="meal-category">
           <h3>Dinner</h3>
-          <input type="text" class="meal-input" id="dinner-input" placeholder="What did you eat?">
+          <input type="text" class="meal-input" id="dinner-input" placeholder="Type here.....">
         </div>
       </div>
     </div>
@@ -263,6 +263,16 @@
 </div>
 
   </div> <!-- notes_container end -->
+    <div class="water-tracker">
+      <h2>WATER TRACKER</h2>
+      <div class="water-stats">
+        <span>Glasses: <span id="glasses-count">0</span>/8</span>
+        <span class="water-goal">Daily Goal: 8 glasses</span>
+      </div>
+      <div class="water-glasses" id="water-glasses">
+        <!-- Glasses will be added by JavaScript -->
+      </div>
+    </div>
 </div> <!-- wrapper end -->
 </div> <!-- container end -->
 
@@ -553,6 +563,83 @@ saveMeal(mealType);
 initMealTracker();
 });
 
+</script>
+
+<script>
+  // WATER TRACKER FUNCTIONALITY
+  document.addEventListener('DOMContentLoaded', function() {
+    const waterGlassesContainer = document.getElementById('water-glasses');
+    const glassesCountElement = document.getElementById('glasses-count');
+    const totalGlasses = 8;
+    let consumedGlasses = 0;
+
+    // Load saved water intake
+    const savedWater = localStorage.getItem('waterIntake');
+    if (savedWater) {
+      consumedGlasses = parseInt(savedWater);
+    }
+
+    // Create water glasses
+    for (let i = 0; i < totalGlasses; i++) {
+      const glass = document.createElement('div');
+      glass.className = 'water-glass';
+      glass.textContent = i + 1;
+      glass.dataset.index = i;
+
+      // Mark as filled if already consumed
+      if (i < consumedGlasses) {
+        glass.classList.add('filled');
+      }
+
+      // Toggle glass on click
+      glass.addEventListener('click', function() {
+        const index = parseInt(this.dataset.index);
+
+        if (this.classList.contains('filled')) {
+          // If clicking a filled glass, unfill it and all after it
+          for (let j = index; j < totalGlasses; j++) {
+            document.querySelector(`.water-glass[data-index="${j}"]`)
+              .classList.remove('filled');
+          }
+          consumedGlasses = index;
+        } else {
+          // If clicking an empty glass, fill it and all before it
+          for (let j = 0; j <= index; j++) {
+            document.querySelector(`.water-glass[data-index="${j}"]`)
+              .classList.add('filled');
+          }
+          consumedGlasses = index + 1;
+        }
+
+        updateWaterStats();
+        saveWaterIntake();
+      });
+
+      waterGlassesContainer.appendChild(glass);
+    }
+
+    // Update the glasses count display
+    function updateWaterStats() {
+      glassesCountElement.textContent = consumedGlasses;
+
+      // Visual feedback when goal is reached
+      if (consumedGlasses >= totalGlasses) {
+        document.querySelector('.water-goal').style.color = '#4CAF50';
+        document.querySelector('.water-goal').textContent = 'Goal reached! 🎉';
+      } else {
+        document.querySelector('.water-goal').style.color = '#0d47a1';
+        document.querySelector('.water-goal').textContent = `Daily Goal: ${totalGlasses} glasses`;
+      }
+    }
+
+    // Save to localStorage
+    function saveWaterIntake() {
+      localStorage.setItem('waterIntake', consumedGlasses.toString());
+    }
+
+    // Initialize
+    updateWaterStats();
+  });
 </script>
 
 <!-- ==================== END SCRIPTS ==================== -->
