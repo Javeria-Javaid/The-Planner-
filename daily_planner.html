@@ -439,6 +439,121 @@
     }, 30000);
   });
 </script>
+<script>
+/ MEAL TRACKER FUNCTIONALITY
+document.addEventListener('DOMContentLoaded', function() {
+// DOM Elements
+const mealInputs = {
+breakfast: document.getElementById('breakfast-input'),
+lunch: document.getElementById('lunch-input'),
+dinner: document.getElementById('dinner-input')
+};
+
+const saveButtons = {
+breakfast: document.getElementById('save-breakfast'),
+lunch: document.getElementById('save-lunch'),
+dinner: document.getElementById('save-dinner')
+};
+
+const clearButtons = {
+breakfast: document.getElementById('clear-breakfast'),
+lunch: document.getElementById('clear-lunch'),
+dinner: document.getElementById('clear-dinner')
+};
+
+const statusElements = {
+breakfast: document.getElementById('breakfast-status'),
+lunch: document.getElementById('lunch-status'),
+dinner: document.getElementById('dinner-status')
+};
+
+// Load saved meals from localStorage
+function loadMeals() {
+const savedMeals = JSON.parse(localStorage.getItem('dailyMeals')) || {};
+for (const mealType in mealInputs) {
+if (savedMeals[mealType]) {
+mealInputs[mealType].value = savedMeals[mealType];
+}
+}
+}
+
+// Save meal to localStorage
+function saveMeal(mealType) {
+const mealValue = mealInputs[mealType].value.trim();
+const meals = JSON.parse(localStorage.getItem('dailyMeals')) || {};
+
+meals[mealType] = mealValue;
+localStorage.setItem('dailyMeals', JSON.stringify(meals));
+
+// Show status message
+statusElements[mealType].textContent = "Saved!";
+statusElements[mealType].style.color = "#4CAF50";
+
+// Clear status after 2 seconds
+setTimeout(() => {
+statusElements[mealType].textContent = "";
+}, 2000);
+}
+
+// Clear meal input
+function clearMeal(mealType) {
+mealInputs[mealType].value = "";
+const meals = JSON.parse(localStorage.getItem('dailyMeals')) || {};
+delete meals[mealType];
+localStorage.setItem('dailyMeals', JSON.stringify(meals));
+
+statusElements[mealType].textContent = "Cleared!";
+statusElements[mealType].style.color = "#F44336";
+
+setTimeout(() => {
+statusElements[mealType].textContent = "";
+}, 2000);
+}
+
+// Auto-save when pressing Enter
+function setupEnterKeySave() {
+for (const mealType in mealInputs) {
+mealInputs[mealType].addEventListener('keypress', function(e) {
+if (e.key === 'Enter') {
+saveMeal(mealType);
+}
+});
+}
+}
+
+// Initialize
+function initMealTracker() {
+loadMeals();
+setupEnterKeySave();
+
+// Set up save buttons
+for (const mealType in saveButtons) {
+if (saveButtons[mealType]) {
+saveButtons[mealType].addEventListener('click', () => saveMeal(mealType));
+}
+}
+
+// Set up clear buttons
+for (const mealType in clearButtons) {
+if (clearButtons[mealType]) {
+clearButtons[mealType].addEventListener('click', () => clearMeal(mealType));
+}
+}
+
+// Auto-save every 30 seconds
+setInterval(() => {
+for (const mealType in mealInputs) {
+if (mealInputs[mealType].value.trim()) {
+saveMeal(mealType);
+}
+}
+}, 30000);
+}
+
+initMealTracker();
+});
+
+</script>
 
 <!-- ==================== END SCRIPTS ==================== -->
 
