@@ -242,7 +242,6 @@ h3{
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  flex: 1;
 }
 .notes-title{
   border-bottom: 1px solid #ddd;
@@ -313,7 +312,6 @@ h3{
   padding: 20px;
   margin-top: 20px;
   border-left: 5px solid #2196F3; /* Blue accent */
-  flex: 2;
 }
 
 .water-tracker h2 {
@@ -363,4 +361,7 @@ h3{
 
 .water-goal {
   color: #0d47a1;
+}
+.second-container{
+  display: flex;
 }
