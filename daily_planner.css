@@ -54,7 +54,7 @@ body {
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   height: 45px;
-  width: 25%;
+  width: 30%;
   font-size: 20px;
   font-weight: bold;
 }
@@ -222,7 +222,9 @@ h3{
   font-size: 16px;
 }
 #add-btn:hover {
-  background-color: #45a049;
+  background-color: #4d4747;
+  opacity: 0.8;
+
 }
 .delete-btn2 {
   background-color: #4d4747;
@@ -237,7 +239,7 @@ h3{
   background-color: #d32f2f;
 }
 .notes_container{
-  width: 36%;
+  width: 37%;
  // background-color: #8f807a;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -307,23 +309,28 @@ h3{
 }
 
 .water-tracker {
-  background-color: #e3f2fd; /* Light blue background */
-  border-radius: 10px;
+  //background-color: #e3f2fd; /* Light blue background */
   padding: 20px;
   margin-top: 20px;
-  border-left: 5px solid #2196F3; /* Blue accent */
+  //border-left: 5px solid #2196F3; /* Blue accent */
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  color: #4d4747;
+
+
 }
 
 .water-tracker h2 {
   margin-top: 0;
-  color: #0d47a1;
+  color: #4d4747;
+// color: #0d47a1;
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
 .water-tracker h2::before {
-  content: "💧";
+ // content: "💧";
 }
 
 .water-glasses {
@@ -336,8 +343,10 @@ h3{
 .water-glass {
   width: 40px;
   height: 40px;
-  background-color: #bbdefb;
-  border: 2px solid #2196F3;
+ // background-color: #bbdefb;
+  background: linear-gradient(135deg, #8f807a, #b1a49d);
+  border:2px solid #4d4747;
+// border: 2px solid #2196F3;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -346,9 +355,13 @@ h3{
   font-size: 1.2em;
   transition: all 0.3s ease;
 }
-
+.water-glass:hover{
+  opacity: 0.8;
+}
 .water-glass.filled {
-  background-color: #2196F3;
+//background-color: #2196F3;
+  background: #4d4747;
+  border:2px solid #8f807a;
   color: white;
 }
 
@@ -360,8 +373,13 @@ h3{
 }
 
 .water-goal {
-  color: #0d47a1;
+//color: #0d47a1;
 }
 .second-container{
   display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  width: 100%;
 }
+

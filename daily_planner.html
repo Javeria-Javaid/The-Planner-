@@ -266,7 +266,8 @@
 </div>
 
   </div> <!-- notes_container end -->
-    <div class="water-tracker">
+    <div class="test-container">
+        <div class="water-tracker">
       <h2>WATER TRACKER</h2>
       <div class="water-stats">
         <span>Glasses: <span id="glasses-count">0</span>/8</span>
@@ -275,6 +276,7 @@
       <div class="water-glasses" id="water-glasses">
         <!-- Glasses will be added by JavaScript -->
       </div>
+    </div>
     </div>
     </div><!-- second-container starts ends-->
 
@@ -629,10 +631,10 @@ initMealTracker();
 
       // Visual feedback when goal is reached
       if (consumedGlasses >= totalGlasses) {
-        document.querySelector('.water-goal').style.color = '#4CAF50';
+        document.querySelector('.water-goal').style.color = '#4d4747';
         document.querySelector('.water-goal').textContent = 'Goal reached! 🎉';
       } else {
-        document.querySelector('.water-goal').style.color = '#0d47a1';
+        document.querySelector('.water-goal').style.color = '#4d4747';
         document.querySelector('.water-goal').textContent = `Daily Goal: ${totalGlasses} glasses`;
       }
     }
