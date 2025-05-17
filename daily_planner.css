@@ -261,7 +261,9 @@ h3{
   box-sizing: border-box;
 }
 .save-btn:hover {
-  background-color: #45a049;
+  background-color: #8f807a;
+  opacity: 0.8;
+
 }
 
 .save-status {
@@ -382,4 +384,28 @@ h3{
   gap: 20px;
   width: 100%;
 }
+.affirmation{
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  color: #4d4747;
+  padding: 20px;
+  margin-top: 40px;
 
+
+}
+.affirmation-content{
+  width: 100%;
+  min-height: 120px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  resize: vertical;
+  box-sizing: border-box;
+
+}
+.affirmation-button{
+
+
+}
