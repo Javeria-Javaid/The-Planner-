@@ -35,16 +35,44 @@ body {
 }
 
 
+/* ==================== MAIN CONTAINER ==================== */
+.container {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  min-height: 100vh; /* Full viewport height */
+  padding: 100px 75px 0px 75px; /* Adjusted padding to account for fixed menu */
+  box-sizing: border-box;
+}
+
 /* ==================== JOURNAL CONTAINER ==================== */
 .journal_container {
-  width: 37%;
-  background: rgba(255, 255, 255, 0.85); /* Semi-transparent white */
+  width: 60%; /* Adjusted width for better centering */
+  max-width: 800px; /* Maximum width for larger screens */
+ // background: rgba(255, 255, 255, 0.85);
   border-radius: 10px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  padding: 25px;
-  backdrop-filter: blur(5px); /* Frosted glass effect */
-  border: 1px solid rgba(143, 128, 122, 0.2); /* Subtle border */
-  margin-top: 20px;
+  padding: 30px;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(143, 128, 122, 0.2);
+  margin: 20px auto; /* Auto margins help with centering */
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .journal_container {
+    width: 80%;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 100px 20px 0px 20px;
+  }
+  .journal_container {
+    width: 95%;
+    padding: 20px;
+  }
 }
 
 .journal-title {
