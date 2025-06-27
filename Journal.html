@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<!-- ==================== NOTES CONTAINER ==================== -->
+<div class="journal_container">
+  <h2 class="journal-title">Notes</h2>
+  <textarea class="journal-content" id="journal-textarea"
+            placeholder="Write your thoughts, reminders, or ideas here..."></textarea>
+  <div class="journal-action">
+    <span class="save-status" id="save-status"></span>
+  </div>
+</div>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // DOM Elements
+    const journalTextarea = document.getElementById('journal-textarea');
+    const saveStatus = document.getElementById('save-status');
+
+    // Load saved journal entry
+    function loadJournal() {
+      const savedEntry = localStorage.getItem('journalEntry');
+      if (savedEntry) {
+        journalTextarea.value = savedEntry;
+      }
+    }
+
+    // Save to localStorage
+    function saveJournal() {
+      localStorage.setItem('journalEntry', journalTextarea.value);
+      saveStatus.textContent = "Saved!";
+      saveStatus.style.color = "#4CAF50"; // Green
+
+      // Clear status after 2 seconds
+      setTimeout(() => {
+        saveStatus.textContent = "";
+      }, 2000);
+    }
+
+    // Auto-save every 30 seconds when content changes
+    let autoSaveTimer;
+    journalTextarea.addEventListener('input', () => {
+      clearTimeout(autoSaveTimer);
+      autoSaveTimer = setTimeout(saveJournal, 30000); // 30-second delay
+    });
+
+    // Optional: Manual save button (add this HTML if needed)
+    // <button id="manual-save-btn" class="save-btn">Save Now</button>
+    const manualSaveBtn = document.getElementById('manual-save-btn');
+    if (manualSaveBtn) {
+      manualSaveBtn.addEventListener('click', saveJournal);
+    }
+
+    // Initialize
+    loadJournal();
+  });
+
+</script>
+</body>
+</html>
