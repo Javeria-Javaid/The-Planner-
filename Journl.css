@@ -1,3 +1,40 @@
+body {
+  background: radial-gradient(circle, #a5a5a5 20%, rgba(136, 136, 136, 0.5) 115%, rgba(243, 229, 229, 0.9) 100%);
+  margin: 0;
+}
+.menu_bar{
+  background: linear-gradient(135deg, #8f807a, #b1a49d);
+  height: 60px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  padding-top: 40px;
+  position: relative;
+}
+.menu-items{
+  text-align: center;
+
+}
+.menu_bar a {
+  text-decoration: none;
+  color: #4d4747;
+  padding: 17px;
+  font-size: 18px;
+  font-style: italic;
+}
+.menu_bar a:hover {
+  text-decoration: underline;
+
+}
+.menu_bar a.active {
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+
 /* ==================== JOURNAL CONTAINER ==================== */
 .journal_container {
   width: 37%;
