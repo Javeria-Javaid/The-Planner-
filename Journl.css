@@ -1,0 +1,86 @@
+/* ==================== JOURNAL CONTAINER ==================== */
+.journal_container {
+  width: 37%;
+  background: rgba(255, 255, 255, 0.85); /* Semi-transparent white */
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  padding: 25px;
+  backdrop-filter: blur(5px); /* Frosted glass effect */
+  border: 1px solid rgba(143, 128, 122, 0.2); /* Subtle border */
+  margin-top: 20px;
+}
+
+.journal-title {
+  color: #4d4747;
+  font-size: 1.8rem;
+  font-weight: bold;
+  border-bottom: 2px solid rgba(143, 128, 122, 0.3); /* Soft beige */
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  font-style: italic;
+  letter-spacing: 0.5px;
+}
+
+.journal-content {
+  width: 100%;
+  min-height: 400px;
+  padding: 15px;
+  border: 1px solid rgba(143, 128, 122, 0.3);
+  border-radius: 8px;
+  font-family: 'Georgia', serif; /* More journal-appropriate font */
+  font-size: 16px;
+  line-height: 1.6;
+  resize: vertical;
+  box-sizing: border-box;
+  background: rgba(255, 255, 255, 0.7);
+  color: #333;
+  transition: all 0.3s ease;
+}
+
+.journal-content:focus {
+  outline: none;
+  border-color: #8f807a; /* Your theme color */
+  box-shadow: 0 0 0 3px rgba(143, 128, 122, 0.2);
+  background: white;
+}
+
+.journal-action {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 15px;
+}
+
+.save-status {
+  font-size: 0.9rem;
+  color: #8f807a;
+  font-style: italic;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+/* Save button (uncomment if adding manual save) */
+/*
+.save-btn {
+  padding: 8px 20px;
+  background: linear-gradient(135deg, #8f807a, #b1a49d);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+
+.save-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+*/
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .journal_container {
+    width: 100%;
+    margin-top: 30px;
+  }
+}
