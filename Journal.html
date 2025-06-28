@@ -4,6 +4,18 @@
   <meta charset="UTF-8">
   <title>Journal</title>
   <link rel="stylesheet" href="Journl.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+
+  <script>
+    // Add this JavaScript
+    document.getElementById('download-pdf').addEventListener('click', function() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+      doc.text("Hello World!", 10, 10);
+      doc.save('test.pdf');
+    });
+  </script>
 </head>
 <body>
 <!-- ==================== MENU BAR ==================== -->
@@ -26,7 +38,16 @@
   <div class="journal-action">
     <span class="save-status" id="save-status"></span>
   </div>
+  <!-- Add this button inside your journal_container div -->
+  <div class="journal-action">
+    <button id="download-pdf" class="save-btn">Download as PDF</button>
+    <span class="save-status" id="save-status"></span>
+  </div>
 </div>
+
+
+
+
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     // DOM Elements
@@ -71,6 +92,48 @@
     loadJournal();
   });
 
+  document.addEventListener('DOMContentLoaded', function() {
+    const { jsPDF } = window.jspdf;
+    const downloadBtn = document.getElementById('download-pdf');
+    const journalContent = document.getElementById('journal-textarea');
+
+    downloadBtn.addEventListener('click', function() {
+      const doc = new jsPDF();
+
+      // PDF styling
+      doc.setFont('helvetica');
+      doc.setFontSize(16);
+      doc.setTextColor(77, 71, 71); // Your #4d4747 color
+      doc.text("My Journal Entry", 105, 20, { align: 'center' });
+
+      // Add decorative line
+      doc.setDrawColor(143, 128, 122); // Your #8f807a color
+      doc.setLineWidth(0.5);
+      doc.line(20, 25, 190, 25);
+
+      // Journal content
+      doc.setFontSize(12);
+      doc.setTextColor(0, 0, 0);
+      const lines = doc.splitTextToSize(journalContent.value, 170);
+      doc.text(lines, 20, 35);
+
+      // Footer
+      doc.setFontSize(10);
+      doc.setTextColor(100);
+      const today = new Date().toLocaleDateString('en-US', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+      doc.text(`Saved from Mindful Moments Journal Created by Javeria Javaid- ${today}`, 105, 285, { align: 'center' });
+
+      doc.save(`journal-${new Date().toISOString().slice(0,10)}.pdf`);
+    });
+  });
+
 </script>
+
+
 </body>
 </html>
