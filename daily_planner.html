@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <title>Daily Planner</title>
   <link rel="stylesheet" href="daily_planner.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
 </head>
 <body>
 
@@ -28,9 +30,9 @@
     <div class="date-txt">
       Today is <span id="date-display" class="date-display"></span>
     </div>
+    <button id="download-pdf" class="download-btn">Download PDF</button>
   </div>
   <!-- ==================== END DATE CONTAINER ==================== -->
-
 
   <!-- ==================== WRAPPER ==================== -->
   <div class="wrapper">
@@ -666,7 +668,149 @@ initMealTracker();
     updateWaterStats();
   });
 </script>
+<script><!-- Download pdf functionality-->
+// PDF Generation Functionality
+document.addEventListener('DOMContentLoaded', function() {
+  const { jsPDF } = window.jspdf;
 
+  document.getElementById('download-pdf').addEventListener('click', function() {
+    // Create a new PDF document
+    const doc = new jsPDF();
+
+    // Add title with current date
+    const today = new Date();
+    const dateString = today.toLocaleDateString('en-US', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+
+    doc.setFontSize(20);
+    doc.text(`Daily Planner - ${dateString}`, 14, 15);
+
+    // Add schedule section
+    doc.setFontSize(16);
+    doc.text('Schedule', 14, 30);
+
+    // Get all schedule items
+    const scheduleItems = document.querySelectorAll('.schedule-item');
+    const scheduleData = [];
+
+    scheduleItems.forEach(item => {
+      const time = item.querySelector('.time-input').value;
+      const activity = item.querySelector('.activity-input').value;
+      if (activity.trim() !== '') {
+        scheduleData.push([time, activity]);
+      }
+    });
+
+    // Add schedule table
+    if (scheduleData.length > 0) {
+      doc.autoTable({
+        startY: 35,
+        head: [['Time', 'Activity']],
+        body: scheduleData,
+        theme: 'grid',
+        headStyles: {
+          fillColor: [76, 175, 80]
+        }
+      });
+    } else {
+      doc.text('No scheduled activities', 14, 40);
+    }
+
+    // Add to-do list section
+    let yPos = doc.lastAutoTable.finalY + 15;
+    doc.setFontSize(16);
+    doc.text('To-Do List', 14, yPos);
+
+    const todoItems = document.querySelectorAll('.task-item');
+    const todoData = [];
+
+    todoItems.forEach(item => {
+      const text = item.querySelector('.task-text').textContent;
+      const isChecked = item.querySelector('.task-checkbox').checked;
+      if (text.trim() !== '') {
+        todoData.push([isChecked ? '✓' : '', text]);
+      }
+    });
+
+    yPos += 10;
+    if (todoData.length > 0) {
+      doc.autoTable({
+        startY: yPos,
+        head: [['Done', 'Task']],
+        body: todoData,
+        theme: 'grid',
+        headStyles: {
+          fillColor: [76, 175, 80]
+        }
+      });
+    } else {
+      doc.text('No tasks added', 14, yPos + 5);
+    }
+
+    // Add meals section
+    yPos = doc.lastAutoTable.finalY + 15;
+    doc.setFontSize(16);
+    doc.text('Meals', 14, yPos);
+
+    const meals = {
+      'Breakfast': document.getElementById('breakfast-input').value,
+      'Lunch': document.getElementById('lunch-input').value,
+      'Dinner': document.getElementById('dinner-input').value
+    };
+
+    yPos += 10;
+    for (const [mealType, mealValue] of Object.entries(meals)) {
+      if (mealValue.trim() !== '') {
+        doc.text(`${mealType}: ${mealValue}`, 14, yPos);
+        yPos += 7;
+      }
+    }
+
+    if (Object.values(meals).every(meal => meal.trim() === '')) {
+      doc.text('No meals planned', 14, yPos);
+      yPos += 7;
+    }
+
+    // Add water tracker
+    yPos += 5;
+    doc.setFontSize(16);
+    doc.text('Water Intake', 14, yPos);
+    const waterCount = document.getElementById('glasses-count').textContent;
+    doc.text(`Glasses consumed: ${waterCount}/8`, 14, yPos + 7);
+
+    // Add notes
+    yPos += 15;
+    doc.setFontSize(16);
+    doc.text('Notes', 14, yPos);
+    const notes = document.getElementById('notes-textarea').value;
+    if (notes.trim() !== '') {
+      const splitNotes = doc.splitTextToSize(notes, 180);
+      doc.text(splitNotes, 14, yPos + 7);
+    } else {
+      doc.text('No notes added', 14, yPos + 7);
+    }
+
+    // Add affirmation
+    yPos += (notes.trim() !== '' ? (splitNotes.length * 7) + 10 : 15);
+    doc.setFontSize(16);
+    doc.text('Affirmation', 14, yPos);
+    const affirmation = document.getElementById('affirmation-textarea').value;
+    if (affirmation.trim() !== '') {
+      const splitAffirmation = doc.splitTextToSize(affirmation, 180);
+      doc.text(splitAffirmation, 14, yPos + 7);
+    } else {
+      doc.text('No affirmation added', 14, yPos + 7);
+    }
+
+    // Save the PDF
+    doc.save(`Daily_Planner_${today.toISOString().split('T')[0]}.pdf`);
+  });
+});
+</script>
 <!-- ==================== END SCRIPTS ==================== -->
 
 </body>
