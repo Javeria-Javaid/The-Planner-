@@ -13,12 +13,19 @@
 <div class="menu_bar">
   <div class="menu-items">
     <a href="index.html">Home</a>
-    <a href="daily_planner.html">Daily Planner</a>
+    <div class="dropdown">
+      <a href="#" class="dropbtn">Planner</a>
+      <div class="dropdown-content">
+        <a href="daily_planner.html" onclick="openTab(event,'Daily')">Daily Planner</a>
+        <a href="weekly_planner.html" onclick="openTab(event,'Weekly')">Weekly Planner</a>
+        <a href="#" onclick="openTab(event,'Monthly')">Monthly Planner</a>
+      </div>
+    </div>
     <a href="Journal.html">Journal</a>
     <a href="About.html">About</a>
     <a href="contact.html">Contact</a>
   </div>
-</div>
+
 <!-- ==================== END MENU BAR ==================== -->
 
 
@@ -30,7 +37,6 @@
     <div class="date-txt">
       Today is <span id="date-display" class="date-display"></span>
     </div>
-    <button id="download-pdf" class="download-btn">Download PDF</button>
   </div>
   <!-- ==================== END DATE CONTAINER ==================== -->
 
@@ -296,6 +302,7 @@
       </div>
 
       </div>
+      <button id="download-pdf" class="download-btn">Download PDF</button>
 
     </div>
     </div><!-- second-container starts ends-->
@@ -668,6 +675,7 @@ initMealTracker();
     updateWaterStats();
   });
 </script>
+
 <script><!-- Download pdf functionality-->
 // PDF Generation Functionality
 document.addEventListener('DOMContentLoaded', function() {
