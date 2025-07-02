@@ -1,8 +1,10 @@
 body {
   background: radial-gradient(circle, #a5a5a5 20%, rgba(136, 136, 136, 0.5) 115%, rgba(243, 229, 229, 0.9) 100%);
   margin: 0;
+  font-style: italic;
+
 }
-.menu_bar{
+.menu_bar {
   background: linear-gradient(135deg, #8f807a, #b1a49d);
   height: 60px;
   width: 100%;
@@ -10,32 +12,65 @@ body {
   top: 0;
   left: 0;
   z-index: 1000;
+  padding: 10px;
   box-shadow: 0 6px 20px rgba(0,0,0,0.15);
   padding-top: 40px;
-  position: relative;
 }
-.menu-items{
-  text-align: center;
 
+.menu-items {
+  text-align: center;
 }
+
 .menu_bar a {
   text-decoration: none;
   color: #4d4747;
   padding: 17px;
   font-size: 18px;
-  font-style: italic;
 }
+
 .menu_bar a:hover {
   text-decoration: underline;
-
 }
+
 .menu_bar a.active {
   text-decoration: underline;
   font-weight: bold;
 }
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 150px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  margin-top: 8px;
+  text-align: left;
+}
+
+.dropdown-content a {
+  display: block;
+  padding: 12px;
+  color: black;
+  text-decoration: none;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
 .container{
-// margin: 75px;
-// margin-left: 135px;
+ // margin: 75px;
+ // margin-left: 135px;
   width: 87%;
   padding: 75px 75px 0px 75px;
 }
@@ -73,7 +108,7 @@ body {
 
 }
 .planner {
-// background-color: white;
+ // background-color: white;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -166,7 +201,7 @@ h3{
 }
 
 .todo-list {
-//background-color: white;
+  //background-color: white;
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -240,7 +275,7 @@ h3{
 }
 .notes_container{
   width: 37%;
-//background-color: #8f807a;
+ //background-color: #8f807a;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   padding: 20px;
@@ -293,8 +328,8 @@ h3{
   margin-top: 10px;
 }
 .test-container{
-//display: flex;
-//background-color: orange;
+  //display: flex;
+  //background-color: orange;
   width: 40%;
 }
 .meal-section{
@@ -302,7 +337,7 @@ h3{
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   width: 90%;
-//align-self: flex-end;
+  //align-self: flex-end;
   margin-top: 40px;
 }
 .meal-input{
@@ -311,10 +346,10 @@ h3{
 }
 
 .water-tracker {
-//background-color: #e3f2fd; /* Light blue background */
+  //background-color: #e3f2fd; /* Light blue background */
   padding: 20px;
   margin-top: 20px;
-//border-left: 5px solid #2196F3; /* Blue accent */
+  //border-left: 5px solid #2196F3; /* Blue accent */
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   color: #4d4747;
@@ -332,7 +367,7 @@ h3{
 }
 
 .water-tracker h2::before {
-// content: "💧";
+ // content: "💧";
 }
 
 .water-glasses {
@@ -345,7 +380,7 @@ h3{
 .water-glass {
   width: 40px;
   height: 40px;
-// background-color: #bbdefb;
+ // background-color: #bbdefb;
   background: linear-gradient(135deg, #8f807a, #b1a49d);
   border:2px solid #4d4747;
 // border: 2px solid #2196F3;

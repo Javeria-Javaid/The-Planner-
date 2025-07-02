@@ -13,11 +13,18 @@
 <div class="menu_bar">
   <div class="menu-items">
     <a href="index.html">Home</a>
-    <a href="daily_planner.html">Daily Planner</a>
+    <div class="dropdown">
+      <a href="#" class="dropbtn">Daily Planner</a>
+      <div class="dropdown-content">
+        <a href="weekly_planner.html" onclick="openTab(event,'Weekly')">Weekly Planner</a>
+        <a href="#" onclick="openTab(event,'Monthly')">Monthly Planner</a>
+      </div>
+    </div>
     <a href="Journal.html">Journal</a>
     <a href="About.html">About</a>
     <a href="contact.html">Contact</a>
   </div>
+
 </div>
 <!-- ==================== END MENU BAR ==================== -->
 
