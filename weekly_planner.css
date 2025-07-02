@@ -6,9 +6,9 @@
   top: 0;
   left: 0;
   z-index: 1000;
+  padding: 10px;
   box-shadow: 0 6px 20px rgba(0,0,0,0.15);
   padding-top: 40px;
-  position: relative;
 }
 .menu-items{
   text-align: center;
@@ -19,7 +19,6 @@
   color: #4d4747;
   padding: 17px;
   font-size: 18px;
-  font-style: italic;
 }
 .menu_bar a:hover {
   text-decoration: underline;
@@ -28,4 +27,31 @@
 .menu_bar a.active {
   text-decoration: underline;
   font-weight: bold;
+}
+.dropdown{
+  position:relative;
+  display: inline-block;
+}
+.dropdown-content{
+  display:none;
+  position:absolute;
+  background-color:#f9f9f9;
+  min-width:150px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  margin-top: 8px;
+  text-align: left;
+}
+.dropdown-content a{
+  display:block;
+  padding: 12px;
+  color:black;
+  text-decoration:none;
+}
+.dropdown-content a:hover{
+  background-color:#ddd;
+}
+.dropdown:hover .dropdown-content{
+
+  display: block;
 }
