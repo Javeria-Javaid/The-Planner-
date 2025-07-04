@@ -23,90 +23,80 @@
   </div>
 
 <!-- ==================== END MENU BAR ==================== -->
-  <div class="content">
+
+  <!-- PLANNER CONTENT -->
+  <div class="planner">
     <h1 class="planner-title">WEEKLY PLAN</h1>
-    <div class="week-header">WEEK</div>
 
-    <div class="planner-grid">
-      <!-- MONDAY -->
-      <div class="day-column">
-        <div class="day-header">MONDAY</div>
-        <!-- Tasks will appear here -->
+    <!-- TWO-SECTION GRID -->
+    <div class="grid-container">
+      <!-- WEEKDAYS -->
+      <div class="weekday mon">
+        <div class="day-title">MONDAY</div>
+        <div class="tasks"></div>
+      </div>
+      <div class="weekday tue">
+        <div class="day-title">TUESDAY</div>
+        <div class="tasks"></div>
+      </div>
+      <div class="weekday wed">
+        <div class="day-title">WEDNESDAY</div>
+        <div class="tasks"></div>
+      </div>
+      <div class="weekday thu">
+        <div class="day-title">THURSDAY</div>
+        <div class="tasks"></div>
+      </div>
+      <div class="weekday fri">
+        <div class="day-title">FRIDAY</div>
+        <div class="tasks"></div>
       </div>
 
-      <!-- TUESDAY -->
-      <div class="day-column">
-        <div class="day-header">TUESDAY</div>
+      <!-- WEEKEND & NOTES -->
+      <div class="weekend">
+        <div class="day-title">WEEKEND</div>
+        <div class="tasks"></div>
       </div>
-
-      <!-- WEDNESDAY -->
-      <div class="day-column">
-        <div class="day-header">WEDNESDAY</div>
-      </div>
-
-      <!-- THURSDAY -->
-      <div class="day-column">
-        <div class="day-header">THURSDAY</div>
-      </div>
-
-      <!-- FRIDAY -->
-      <div class="day-column">
-        <div class="day-header">FRIDAY</div>
-      </div>
-
-      <!-- WEEKEND -->
-      <div class="day-column weekend-column">
-        <div class="day-header">WEEKEND</div>
-      </div>
-
-      <!-- NOTES -->
-      <div class="day-column notes-column">
-        <div class="day-header">NOTES</div>
-        <textarea style="width: 100%; height: 300px; border: 1px solid #ddd; padding: 10px;"></textarea>
+      <div class="notes">
+        <div class="day-title">NOTES</div>
+        <textarea style="width: 100%; height: 120px;"></textarea>
       </div>
     </div>
 
+    <!-- TASK INPUT -->
     <div class="task-input">
-      <select id="task-day">
-        <option value="monday">Monday</option>
-        <option value="tuesday">Tuesday</option>
-        <option value="wednesday">Wednesday</option>
-        <option value="thursday">Thursday</option>
-        <option value="friday">Friday</option>
+      <select id="day-select">
+        <option value="mon">Monday</option>
+        <option value="tue">Tuesday</option>
+        <option value="wed">Wednesday</option>
+        <option value="thu">Thursday</option>
+        <option value="fri">Friday</option>
         <option value="weekend">Weekend</option>
       </select>
       <input type="text" id="new-task" placeholder="Add a new task...">
-      <button id="add-task">Add</button>
+      <button id="add-btn">Add</button>
     </div>
   </div>
 
   <script>
-    document.getElementById('add-task').addEventListener('click', function() {
+    // Task adding functionality
+    document.getElementById('add-btn').addEventListener('click', function() {
+      const day = document.getElementById('day-select').value;
       const taskText = document.getElementById('new-task').value.trim();
-      const day = document.getElementById('task-day').value;
 
       if (taskText) {
-        const taskElement = document.createElement('div');
-        taskElement.className = 'task';
-        taskElement.textContent = taskText;
+        const task = document.createElement('div');
+        task.className = 'task';
+        task.textContent = taskText;
 
-        // Add click to delete functionality
-        taskElement.addEventListener('click', function() {
+        // Click to delete
+        task.addEventListener('click', function() {
           this.remove();
         });
 
-        // Append to the selected day column
-        document.querySelector(`.${day}-tasks`).appendChild(taskElement);
+        document.querySelector(`.${day} .tasks`).appendChild(task);
         document.getElementById('new-task').value = '';
       }
-    });
-
-    // Initialize task containers for each day
-    document.querySelectorAll('.day-column:not(.notes-column)').forEach(column => {
-      const day = column.querySelector('.day-header').textContent.toLowerCase();
-      const tasksContainer = document.createElement('div');
-      tasksContainer.className = `${day}-tasks`;
-      column.appendChild(tasksContainer);
     });
   </script>
 </body>
