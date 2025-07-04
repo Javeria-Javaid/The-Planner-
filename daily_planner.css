@@ -92,6 +92,8 @@ body {
   width: 30%;
   font-size: 20px;
   font-weight: bold;
+  margin-top: 120px;
+
 }
 
 .date-txt {
@@ -444,18 +446,19 @@ h3{
 
 
 }
-.download-btn {
-  background-color: #4CAF50;
+.save-btn {
+  padding: 20px 20px;
+  background: linear-gradient(135deg, #8f807a, #b1a49d);
   color: white;
   border: none;
-  padding: 10px 20px;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 16px;
-  margin-top: 10px;
-  transition: background-color 0.3s;
+  font-weight: bold;
+  transition: all 0.3s;
+  margin-right: 10px;
 }
 
-.download-btn:hover {
-  background-color: #45a049;
+.save-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
 }

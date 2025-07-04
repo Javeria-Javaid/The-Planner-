@@ -92,7 +92,7 @@ body {
   border: 1px solid rgba(143, 128, 122, 0.2);
   margin: 0 auto; /* Removed vertical margin */
   min-height: 400px; /* Added fixed minimum height */
-  margin-top: 100px;
+  margin-top: 150px;
 }
 
 /* Journal content area */
@@ -185,7 +185,6 @@ body {
   border-radius: 4px;
 }
 
-/* Add to your existing CSS */
 .save-btn {
   padding: 8px 20px;
   background: linear-gradient(135deg, #8f807a, #b1a49d);
