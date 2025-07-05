@@ -9,51 +9,82 @@
 
 </head>
 <body>
-<div class="planner-container">
-  <div class="planner-header">
-    <h1>Monthly Planner</h1>
-    <div class="month-controls">
-      <select id="month-select"></select>
-      <select id="year-select"></select>
-    </div>
-  </div>
+<!-- ==================== MENU BAR ==================== -->
+<div class="menu_bar">
+  <div class="menu-items">
+    <a href="index.html">Home</a>
+    <div class="dropdown">
+      <a href="#" class="dropbtn">Monthly Planner</a>
+      <div class="dropdown-content">
+        <a href="daily_planner.html" onclick="openTab(event,'Daily')">Daily Planner</a>
+        <a href="weekly_planner.html" onclick="openTab(event,'Weekly')">Weekly Planner</a>
 
-  <div class="calendar-wrapper">
-    <div class="calendar-grid" id="calendar-grid">
-      <div class="weekday-header">MON</div>
-      <div class="weekday-header">TUE</div>
-      <div class="weekday-header">WED</div>
-      <div class="weekday-header">THU</div>
-      <div class="weekday-header">FRI</div>
-      <div class="weekday-header">SAT</div>
-      <div class="weekday-header">SUN</div>
-    </div>
-
-    <div class="todo-section">
-      <div class="section-title">To Do List</div>
-      <ul class="task-list" id="tasks-list"></ul>
-      <div class="task-input">
-        <select id="task-date">
-          <option value="">Select date</option>
-          <!-- Will be populated by JS -->
-        </select>
-        <input type="text" id="new-task" placeholder="Task description">
-        <button id="add-task">Add</button>
-      </div>
-
-      <div class="section-title" style="margin-top: 20px;">Goals</div>
-      <ul class="task-list" id="goals-list"></ul>
-      <div class="task-input">
-        <select id="goal-date">
-          <option value="">Select date</option>
-          <!-- Will be populated by JS -->
-        </select>
-        <input type="text" id="new-goal" placeholder="Goal description">
-        <button id="add-goal">Add</button>
       </div>
     </div>
+    <a href="Journal.html">Journal</a>
+    <a href="About.html">About</a>
+    <a href="contact.html">Contact</a>
   </div>
-</div>
+
+  <!-- ==================== END MENU BAR ==================== -->
+
+
+
+
+
+
+
+  <div class="planner-container">
+    <div class="planner-header">
+      <h1>Monthly Planner</h1>
+      <div class="month-controls">
+        <select id="month-select"></select>
+        <select id="year-select"></select>
+      </div>
+    </div>
+
+    <div class="planner-content">
+      <!-- Calendar Grid -->
+      <div class="calendar-grid">
+        <div class="weekday-header">MON</div>
+        <div class="weekday-header">TUE</div>
+        <div class="weekday-header">WED</div>
+        <div class="weekday-header">THU</div>
+        <div class="weekday-header">FRI</div>
+        <div class="weekday-header">SAT</div>
+        <div class="weekday-header">SUN</div>
+
+        <!-- Calendar days will be inserted here by JavaScript -->
+      </div>
+
+      <!-- To-Do List Section -->
+      <div class="todo-section">
+        <div class="todo-column">
+          <h3>To Do List</h3>
+          <div class="task-input">
+            <select id="task-date">
+              <option value="">Select date</option>
+            </select>
+            <input type="text" id="new-task" placeholder="Task description">
+            <button id="add-task">Add</button>
+          </div>
+          <ul class="task-list" id="tasks-list"></ul>
+        </div>
+
+        <div class="todo-column">
+          <h3>Goals</h3>
+          <div class="task-input">
+            <select id="goal-date">
+              <option value="">Select date</option>
+            </select>
+            <input type="text" id="new-goal" placeholder="Goal description">
+            <button id="add-goal">Add</button>
+          </div>
+          <ul class="task-list" id="goals-list"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
 
 <script>
   // Data storage
