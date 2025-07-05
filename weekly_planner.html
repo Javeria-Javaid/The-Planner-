@@ -1,109 +1,189 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Weekly Planner</title>
   <link rel="stylesheet" href="weekly_planner.css">
 </head>
 <body>
-<!-- ==================== MENU BAR ==================== -->
+<!-- Menu Bar -->
 <div class="menu_bar">
   <div class="menu-items">
     <a href="index.html">Home</a>
     <div class="dropdown">
       <a href="#" class="dropbtn">Weekly Planner</a>
       <div class="dropdown-content">
-        <a href="daily_planner.html" onclick="openTab(event,'Daily')">Daily Planner</a>
-        <a href="Monthly_planner.html" onclick="openTab(event,'Monthly')">Monthly Planner</a>
+        <a href="daily_planner.html">Daily Planner</a>
+        <a href="Monthly_planner.html">Monthly Planner</a>
       </div>
     </div>
     <a href="Journal.html">Journal</a>
     <a href="About.html">About</a>
     <a href="contact.html">Contact</a>
   </div>
+</div>
 
-<!-- ==================== END MENU BAR ==================== -->
+<!-- Planner Content -->
+<div class="planner">
+  <h1 class="planner-title">WEEKLY PLAN</h1>
 
-  <!-- PLANNER CONTENT -->
-  <div class="planner">
-    <h1 class="planner-title">WEEKLY PLAN</h1>
-
-    <!-- TWO-SECTION GRID -->
-    <div class="grid-container">
-      <!-- WEEKDAYS -->
-      <div class="weekday mon">
-        <div class="day-title">MONDAY</div>
-        <div class="tasks"></div>
-      </div>
-      <div class="weekday tue">
-        <div class="day-title">TUESDAY</div>
-        <div class="tasks"></div>
-      </div>
-      <div class="weekday wed">
-        <div class="day-title">WEDNESDAY</div>
-        <div class="tasks"></div>
-      </div>
-      <div class="weekday thu">
-        <div class="day-title">THURSDAY</div>
-        <div class="tasks"></div>
-      </div>
-      <div class="weekday fri">
-        <div class="day-title">FRIDAY</div>
-        <div class="tasks"></div>
-      </div>
-
-      <!-- WEEKEND & NOTES -->
-      <div class="weekend">
-        <div class="day-title">WEEKEND</div>
-        <div class="tasks"></div>
-      </div>
-      <div class="notes">
-        <div class="day-title">NOTES</div>
-        <textarea style="width: 100%; height: 120px;"></textarea>
-      </div>
+  <!-- Grid Layout -->
+  <div class="grid-container">
+    <!-- Weekdays -->
+    <div class="weekday mon">
+      <div class="day-title">MONDAY</div>
+      <div class="tasks" id="mon-tasks"></div>
+    </div>
+    <div class="weekday tue">
+      <div class="day-title">TUESDAY</div>
+      <div class="tasks" id="tue-tasks"></div>
+    </div>
+    <div class="weekday wed">
+      <div class="day-title">WEDNESDAY</div>
+      <div class="tasks" id="wed-tasks"></div>
+    </div>
+    <div class="weekday thu">
+      <div class="day-title">THURSDAY</div>
+      <div class="tasks" id="thu-tasks"></div>
+    </div>
+    <div class="weekday fri">
+      <div class="day-title">FRIDAY</div>
+      <div class="tasks" id="fri-tasks"></div>
     </div>
 
-    <!-- TASK INPUT -->
-    <div class="task-input">
-      <select id="day-select">
-        <option value="mon">Monday</option>
-        <option value="tue">Tuesday</option>
-        <option value="wed">Wednesday</option>
-        <option value="thu">Thursday</option>
-        <option value="fri">Friday</option>
-        <option value="weekend">Weekend</option>
-      </select>
-      <input type="text" id="new-task" placeholder="Add a new task...">
-      <button id="add-btn">Add</button>
+    <!-- Weekend & Notes -->
+    <div class="weekend">
+      <div class="day-title">WEEKEND</div>
+      <div class="tasks" id="weekend-tasks"></div>
+    </div>
+    <div class="notes">
+      <div class="day-title">NOTES</div>
+      <textarea id="weekly-notes" placeholder="Add your weekly notes here..."></textarea>
     </div>
   </div>
 
-  <script>
-    // Task adding functionality
+  <!-- Task Input -->
+  <div class="task-input">
+    <select id="day-select">
+      <option value="mon">Monday</option>
+      <option value="tue">Tuesday</option>
+      <option value="wed">Wednesday</option>
+      <option value="thu">Thursday</option>
+      <option value="fri">Friday</option>
+      <option value="weekend">Weekend</option>
+    </select>
+    <input type="text" id="new-task" placeholder="Add a new task...">
+    <button id="add-btn">Add Task</button>
+  </div>
+</div>
+
+<script>
+  // Load saved data from localStorage
+  function loadData() {
+    const savedData = localStorage.getItem('weeklyPlannerData');
+    if (savedData) {
+      const data = JSON.parse(savedData);
+
+      // Load tasks
+      for (const day in data.tasks) {
+        const tasksContainer = document.getElementById(`${day}-tasks`);
+        data.tasks[day].forEach(taskText => {
+          addTaskToDay(day, taskText);
+        });
+      }
+
+      // Load notes
+      if (data.notes) {
+        document.getElementById('weekly-notes').value = data.notes;
+      }
+    }
+  }
+
+  // Save data to localStorage
+  function saveData() {
+    const tasks = {
+      mon: getTasksForDay('mon'),
+      tue: getTasksForDay('tue'),
+      wed: getTasksForDay('wed'),
+      thu: getTasksForDay('thu'),
+      fri: getTasksForDay('fri'),
+      weekend: getTasksForDay('weekend')
+    };
+
+    const notes = document.getElementById('weekly-notes').value;
+
+    localStorage.setItem('weeklyPlannerData', JSON.stringify({
+      tasks: tasks,
+      notes: notes
+    }));
+  }
+
+  // Get all tasks for a specific day
+  function getTasksForDay(day) {
+    const tasks = [];
+    const taskElements = document.getElementById(`${day}-tasks`).children;
+
+    for (let i = 0; i < taskElements.length; i++) {
+      tasks.push(taskElements[i].textContent.replace('×', '').trim());
+    }
+
+    return tasks;
+  }
+
+  // Add a new task to a specific day
+  function addTaskToDay(day, taskText) {
+    const task = document.createElement('div');
+    task.className = 'task';
+    task.innerHTML = `
+        <span>${taskText}</span>
+        <span class="task-remove">×</span>
+      `;
+
+    // Click to delete
+    task.querySelector('.task-remove').addEventListener('click', function(e) {
+      e.stopPropagation();
+      task.remove();
+      saveData();
+    });
+
+    // Click to mark as complete (toggle)
+    task.addEventListener('click', function() {
+      this.style.textDecoration = this.style.textDecoration === 'line-through' ? 'none' : 'line-through';
+      saveData();
+    });
+
+    document.getElementById(`${day}-tasks`).appendChild(task);
+  }
+
+  // Initialize the planner
+  document.addEventListener('DOMContentLoaded', function() {
+    // Load saved data
+    loadData();
+
+    // Add new task
     document.getElementById('add-btn').addEventListener('click', function() {
       const day = document.getElementById('day-select').value;
       const taskText = document.getElementById('new-task').value.trim();
 
       if (taskText) {
-        const task = document.createElement('div');
-        task.className = 'task';
-        task.textContent = taskText;
-
-        // Click to delete
-        task.addEventListener('click', function() {
-          this.remove();
-        });
-
-        document.querySelector(`.${day} .tasks`).appendChild(task);
+        addTaskToDay(day, taskText);
         document.getElementById('new-task').value = '';
+        saveData();
       }
     });
-  </script>
-</body>
-</html>
 
+    // Save notes when changed
+    document.getElementById('weekly-notes').addEventListener('input', saveData);
 
-
-
+    // Allow pressing Enter to add task
+    document.getElementById('new-task').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        document.getElementById('add-btn').click();
+      }
+    });
+  });
+</script>
 </body>
 </html>

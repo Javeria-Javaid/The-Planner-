@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weekly Planner</title>
+  <style>
+    body {
+      background: radial-gradient(circle, #a5a5a5 20%, rgba(136, 136, 136, 0.5) 115%, rgba(243, 229, 229, 0.9) 100%);
+      font-style: italic;
+      margin: 0;
+      padding-top: 110px;
+      color: #4d4747;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    
+    .menu_bar {
+      background: linear-gradient(135deg, #8f807a, #b1a49d);
+      height: 60px;
+      width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      padding: 10px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+      padding-top: 40px;
+    }
+    
+    .menu-items {
+      text-align: center;
+    }
+    
+    .menu_bar a {
+      text-decoration: none;
+      color: #4d4747;
+      padding: 17px;
+      font-size: 18px;
+    }
+    
+    .menu_bar a:hover {
+      text-decoration: underline;
+    }
+    
+    .menu_bar a.active {
+      text-decoration: underline;
+      font-weight: bold;
+    }
+    
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 150px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+      margin-top: 8px;
+      text-align: left;
+    }
+    
+    .dropdown-content a {
+      display: block;
+      padding: 12px;
+      color: black;
+      text-decoration: none;
+    }
+    
+    .dropdown-content a:hover {
+      background-color: #ddd;
+    }
+    
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+    
+    .planner {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      padding: 20px;
+      min-height: calc(100vh - 170px);
+      padding-bottom: 40px;
+      margin-top: 20px;
+    }
+    
+    .planner-title {
+      text-align: center;
+      font-size: 28px;
+      margin: 20px 0;
+      color: #4d4747;
+      text-transform: uppercase;
+    }
+    
+    .grid-container {
+      display: grid;
+      grid-template-areas:
+        "mon tue wed thu fri"
+        "weekend weekend notes notes notes";
+      gap: 15px;
+    }
+    
+    .weekday, .weekend, .notes {
+      background: white;
+      border-radius: 8px;
+      padding: 15px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      min-height: 200px;
+    }
+    
+    .mon { grid-area: mon; }
+    .tue { grid-area: tue; }
+    .wed { grid-area: wed; }
+    .thu { grid-area: thu; }
+    .fri { grid-area: fri; }
+    .weekend { grid-area: weekend; }
+    .notes { grid-area: notes; background: #fff8e1; }
+    
+    .day-title {
+      font-weight: bold;
+      text-align: center;
+      padding-bottom: 10px;
+      margin-bottom: 15px;
+      border-bottom: 2px solid #4d4747;
+      color: #4d4747;
+    }
+    
+    .task {
+      padding: 8px;
+      margin-bottom: 5px;
+      background: #f9f9f9;
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .task:hover {
+      background: #f0f0f0;
+    }
+    
+    .task-remove {
+      color: #f44336;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    
+    .task-input {
+      display: flex;
+      gap: 10px;
+      margin-top: 30px;
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .task-input select,
+    .task-input input {
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      flex: 1;
+    }
+    
+    .task-input button {
+      padding: 10px 20px;
+      background: #8f807a;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    
+    .task-input button:hover {
+      background: #7a6d67;
+    }
+    
+    textarea {
+      width: 100%;
+      height: 120px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      resize: vertical;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .grid-container {
+        grid-template-areas:
+          "mon tue wed"
+          "thu fri weekend"
+          "notes notes notes";
+      }
+      
+      .planner {
+        padding: 15px;
+        min-height: auto;
+      }
+      
+      .task-input {
+        flex-wrap: wrap;
+      }
+      
+      .task-input select,
+      .task-input input,
+      .task-input button {
+        width: 100%;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .grid-container {
+        grid-template-areas:
+          "mon"
+          "tue"
+          "wed"
+          "thu"
+          "fri"
+          "weekend"
+          "notes";
+      }
+      
+      .menu_bar a {
+        padding: 10px;
+        font-size: 16px;
+      }
+      
+      .planner-title {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Menu Bar -->
+  <div class="menu_bar">
+    <div class="menu-items">
+      <a href="index.html">Home</a>
+      <div class="dropdown">
+        <a href="#" class="dropbtn">Weekly Planner</a>
+        <div class="dropdown-content">
+          <a href="daily_planner.html">Daily Planner</a>
+          <a href="Monthly_planner.html">Monthly Planner</a>
+        </div>
+      </div>
+      <a href="Journal.html">Journal</a>
+      <a href="About.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+
+  <!-- Planner Content -->
+  <div class="planner">
+    <h1 class="planner-title">WEEKLY PLAN</h1>
+
+    <!-- Grid Layout -->
+    <div class="grid-container">
+      <!-- Weekdays -->
+      <div class="weekday mon">
+        <div class="day-title">MONDAY</div>
+        <div class="tasks" id="mon-tasks"></div>
+      </div>
+      <div class="weekday tue">
+        <div class="day-title">TUESDAY</div>
+        <div class="tasks" id="tue-tasks"></div>
+      </div>
+      <div class="weekday wed">
+        <div class="day-title">WEDNESDAY</div>
+        <div class="tasks" id="wed-tasks"></div>
+      </div>
+      <div class="weekday thu">
+        <div class="day-title">THURSDAY</div>
+        <div class="tasks" id="thu-tasks"></div>
+      </div>
+      <div class="weekday fri">
+        <div class="day-title">FRIDAY</div>
+        <div class="tasks" id="fri-tasks"></div>
+      </div>
+
+      <!-- Weekend & Notes -->
+      <div class="weekend">
+        <div class="day-title">WEEKEND</div>
+        <div class="tasks" id="weekend-tasks"></div>
+      </div>
+      <div class="notes">
+        <div class="day-title">NOTES</div>
+        <textarea id="weekly-notes" placeholder="Add your weekly notes here..."></textarea>
+      </div>
+    </div>
+
+    <!-- Task Input -->
+    <div class="task-input">
+      <select id="day-select">
+        <option value="mon">Monday</option>
+        <option value="tue">Tuesday</option>
+        <option value="wed">Wednesday</option>
+        <option value="thu">Thursday</option>
+        <option value="fri">Friday</option>
+        <option value="weekend">Weekend</option>
+      </select>
+      <input type="text" id="new-task" placeholder="Add a new task...">
+      <button id="add-btn">Add Task</button>
+    </div>
+  </div>
+
+  <script>
+    // Load saved data from localStorage
+    function loadData() {
+      const savedData = localStorage.getItem('weeklyPlannerData');
+      if (savedData) {
+        const data = JSON.parse(savedData);
+        
+        // Load tasks
+        for (const day in data.tasks) {
+          const tasksContainer = document.getElementById(`${day}-tasks`);
+          data.tasks[day].forEach(taskText => {
+            addTaskToDay(day, taskText);
+          });
+        }
+        
+        // Load notes
+        if (data.notes) {
+          document.getElementById('weekly-notes').value = data.notes;
+        }
+      }
+    }
+    
+    // Save data to localStorage
+    function saveData() {
+      const tasks = {
+        mon: getTasksForDay('mon'),
+        tue: getTasksForDay('tue'),
+        wed: getTasksForDay('wed'),
+        thu: getTasksForDay('thu'),
+        fri: getTasksForDay('fri'),
+        weekend: getTasksForDay('weekend')
+      };
+      
+      const notes = document.getElementById('weekly-notes').value;
+      
+      localStorage.setItem('weeklyPlannerData', JSON.stringify({
+        tasks: tasks,
+        notes: notes
+      }));
+    }
+    
+    // Get all tasks for a specific day
+    function getTasksForDay(day) {
+      const tasks = [];
+      const taskElements = document.getElementById(`${day}-tasks`).children;
+      
+      for (let i = 0; i < taskElements.length; i++) {
+        tasks.push(taskElements[i].textContent.replace('×', '').trim());
+      }
+      
+      return tasks;
+    }
+    
+    // Add a new task to a specific day
+    function addTaskToDay(day, taskText) {
+      const task = document.createElement('div');
+      task.className = 'task';
+      task.innerHTML = `
+        <span>${taskText}</span>
+        <span class="task-remove">×</span>
+      `;
+      
+      // Click to delete
+      task.querySelector('.task-remove').addEventListener('click', function(e) {
+        e.stopPropagation();
+        task.remove();
+        saveData();
+      });
+      
+      // Click to mark as complete (toggle)
+      task.addEventListener('click', function() {
+        this.style.textDecoration = this.style.textDecoration === 'line-through' ? 'none' : 'line-through';
+        saveData();
+      });
+      
+      document.getElementById(`${day}-tasks`).appendChild(task);
+    }
+    
+    // Initialize the planner
+    document.addEventListener('DOMContentLoaded', function() {
+      // Load saved data
+      loadData();
+      
+      // Add new task
+      document.getElementById('add-btn').addEventListener('click', function() {
+        const day = document.getElementById('day-select').value;
+        const taskText = document.getElementById('new-task').value.trim();
+        
+        if (taskText) {
+          addTaskToDay(day, taskText);
+          document.getElementById('new-task').value = '';
+          saveData();
+        }
+      });
+      
+      // Save notes when changed
+      document.getElementById('weekly-notes').addEventListener('input', saveData);
+      
+      // Allow pressing Enter to add task
+      document.getElementById('new-task').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          document.getElementById('add-btn').click();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
