@@ -84,7 +84,7 @@ body {
 
 }
 .date_container{
-  background: white;
+  //background: white;
   padding: 20px 15px 10px 15px;
   border-radius: 10px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
@@ -248,6 +248,7 @@ h3{
   font-size: 16px;
   border: 1px solid #ddd;
   border-radius: 4px;
+  width: 10%;
 }
 #add-btn {
   padding: 10px 15px;
@@ -354,7 +355,7 @@ h3{
   border-radius: 10px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
   color: #4d4747;
-width: 35%;
+  width: 32%;
 
 }
 
@@ -456,6 +457,9 @@ width: 35%;
   font-weight: bold;
   transition: all 0.3s;
   margin-right: 10px;
+  width: 15%;
+  height: 65px;
+  margin-top: 25px;
 }
 
 .save-btn:hover {
@@ -468,5 +472,5 @@ width: 35%;
   gap: 20px;
 }
 .affirmation-container{
-  width: 40%;
+  width: 37%;
 }
