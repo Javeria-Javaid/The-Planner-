@@ -216,10 +216,11 @@ body {
 }
 
 .todo-column {
-  background: #f9f9f9;
+  //background: #f9f9f9;
   padding: 15px;
   border-radius: 5px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  background-color: #8f807a;
 
 }
 
