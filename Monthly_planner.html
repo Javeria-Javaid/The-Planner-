@@ -1,303 +1,371 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Monthly Planner</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
-        
-        body {
-            background: #f5f5f5;
-            padding: 20px;
-        }
-        
-        .planner-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            padding: 20px;
-        }
-        
-        .planner-header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        
-        .month-controls {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin: 15px 0;
-        }
-        
-        .month-controls select {
-            padding: 8px 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-        
-        .calendar-wrapper {
-            display: grid;
-            grid-template-columns: 7fr 3fr;
-            gap: 20px;
-        }
-        
-        .calendar-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 2px;
-            background: #eee;
-            border: 1px solid #eee;
-        }
-        
-        .weekday-header {
-            background: #8f807a;
-            color: white;
-            text-align: center;
-            padding: 10px;
-            font-weight: bold;
-        }
-        
-        .day-cell {
-            min-height: 80px;
-            background: white;
-            padding: 5px;
-            position: relative;
-        }
-        
-        .day-number {
-            font-weight: bold;
-            margin-bottom: 3px;
-            width: 24px;
-            height: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-        }
-        
-        .has-tasks .day-number {
-            background: #8f807a;
-            color: white;
-        }
-        
-        .todo-section {
-            background: #f9f9f9;
-            padding: 15px;
-            border-radius: 5px;
-        }
-        
-        .section-title {
-            font-weight: bold;
-            margin-bottom: 10px;
-            padding-bottom: 5px;
-            border-bottom: 1px solid #ddd;
-        }
-        
-        .task-input {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-        }
-        
-        .task-input input, .task-input select {
-            flex: 1;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-        
-        .task-input button {
-            padding: 8px 15px;
-            background: #8f807a;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        
-        .task-list {
-            list-style: none;
-            margin-top: 10px;
-        }
-        
-        .task-item {
-            padding: 8px 0;
-            border-bottom: 1px solid #eee;
-            display: flex;
-            justify-content: space-between;
-        }
-        
-        .date-indicator {
-            font-size: 0.8em;
-            color: #8f807a;
-            margin-left: 5px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Monthly Planner</title>
+  <link rel="stylesheet" href="Monthly_planner.css">
 </head>
 <body>
-    <div class="planner-container">
-        <div class="planner-header">
-            <h1>Monthly Planner</h1>
-            <div class="month-controls">
-                <select id="month-select"></select>
-                <select id="year-select"></select>
-            </div>
-        </div>
-        
-        <div class="calendar-wrapper">
-            <div class="calendar-grid" id="calendar-grid">
-                <div class="weekday-header">MON</div>
-                <div class="weekday-header">TUE</div>
-                <div class="weekday-header">WED</div>
-                <div class="weekday-header">THU</div>
-                <div class="weekday-header">FRI</div>
-                <div class="weekday-header">SAT</div>
-                <div class="weekday-header">SUN</div>
-            </div>
-            
-            <div class="todo-section">
-                <div class="section-title">To Do List</div>
-                <ul class="task-list" id="tasks-list"></ul>
-                <div class="task-input">
-                    <select id="task-date">
-                        <option value="">Select date</option>
-                        <!-- Will be populated by JS -->
-                    </select>
-                    <input type="text" id="new-task" placeholder="Task description">
-                    <button id="add-task">Add</button>
-                </div>
-                
-                <div class="section-title" style="margin-top: 20px;">Goals</div>
-                <ul class="task-list" id="goals-list"></ul>
-                <div class="task-input">
-                    <select id="goal-date">
-                        <option value="">Select date</option>
-                        <!-- Will be populated by JS -->
-                    </select>
-                    <input type="text" id="new-goal" placeholder="Goal description">
-                    <button id="add-goal">Add</button>
-                </div>
-            </div>
-        </div>
+<!-- Menu Bar (unchanged) -->
+<div class="menu_bar">
+  <div class="menu-items">
+    <a href="index.html">Home</a>
+    <div class="dropdown">
+      <a href="#" class="dropbtn">Monthly Planner</a>
+      <div class="dropdown-content">
+        <a href="daily_planner.html" onclick="openTab(event,'Daily')">Daily Planner</a>
+        <a href="weekly_planner.html" onclick="openTab(event,'Weekly')">Weekly Planner</a>
+      </div>
+    </div>
+    <a href="Journal.html">Journal</a>
+    <a href="About.html">About</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</div>
+
+<div class="planner-container">
+  <div class="planner-header">
+    <h1>Monthly Planner</h1>
+    <div class="month-controls">
+      <button id="prev-month">&lt;</button>
+      <select id="month-select"></select>
+      <select id="year-select"></select>
+      <button id="next-month">&gt;</button>
+    </div>
+  </div>
+
+  <div class="planner-content">
+    <div class="calendar-grid" id="calendar-grid">
+      <div class="weekday-header">MON</div>
+      <div class="weekday-header">TUE</div>
+      <div class="weekday-header">WED</div>
+      <div class="weekday-header">THU</div>
+      <div class="weekday-header">FRI</div>
+      <div class="weekday-header">SAT</div>
+      <div class="weekday-header">SUN</div>
     </div>
 
-    <script>
-        // Data storage
-        const tasks = {};
-        const goals = {};
-        
-        // Initialize month dropdown
-        const months = [
-            "January", "February", "March", "April", "May", "June",
-            "July", "August", "September", "October", "November", "December"
-        ];
-        const monthSelect = document.getElementById('month-select');
-        months.forEach((month, index) => {
-            const option = document.createElement('option');
-            option.value = index;
-            option.textContent = month;
-            if (index === new Date().getMonth()) {
-                option.selected = true;
-            }
-            monthSelect.appendChild(option);
-        });
-        
-        // Initialize year dropdown (current year ±5)
-        const currentYear = new Date().getFullYear();
-        const yearSelect = document.getElementById('year-select');
-        for (let year = currentYear - 5; year <= currentYear + 5; year++) {
-            const option = document.createElement('option');
-            option.value = year;
-            option.textContent = year;
-            if (year === currentYear) {
-                option.selected = true;
-            }
-            yearSelect.appendChild(option);
-        }
-        
-        // Generate calendar days
-        function generateCalendar() {
-            const month = parseInt(monthSelect.value);
-            const year = parseInt(yearSelect.value);
-            const firstDay = new Date(year, month, 1).getDay();
-            const daysInMonth = new Date(year, month + 1, 0).getDate();
-            const calendarGrid = document.getElementById('calendar-grid');
-            
-            // Clear existing days (keep headers)
-            while (calendarGrid.children.length > 7) {
-                calendarGrid.removeChild(calendarGrid.lastChild);
-            }
-            
-            // Update date dropdowns
-            updateDateDropdowns(daysInMonth);
-            
-            // Add empty cells for days before the 1st (Monday-start week)
-            const startOffset = firstDay === 0 ? 6 : firstDay - 1;
-            for (let i = 0; i < startOffset; i++) {
-                calendarGrid.appendChild(document.createElement('div'));
-            }
-            
-            // Add day cells
-            for (let day = 1; day <= daysInMonth; day++) {
-                const dayCell = document.createElement('div');
-                dayCell.className = 'day-cell';
-                dayCell.dataset.date = `${year}-${month+1}-${day}`;
-                
-                const dayNumber = document.createElement('div');
-                dayNumber.className = 'day-number';
-                dayNumber.textContent = day;
-                dayCell.appendChild(dayNumber);
-                
-                // Check if date has tasks
-                const dateKey = `${year}-${month+1}-${day}`;
-                if (tasks[dateKey]?.length || goals[dateKey]?.length) {
-                    dayCell.classList.add('has-tasks');
-                }
-                
-                calendarGrid.appendChild(dayCell);
-            }
-        }
-        
-        // Update date dropdowns
-        function updateDateDropdowns(daysInMonth) {
-            const month = parseInt(monthSelect.value) + 1;
-            const year = parseInt(yearSelect.value);
-            
-            const taskDateSelect = document.getElementById('task-date');
-            const goalDateSelect = document.getElementById('goal-date');
-            
-            // Clear existing options (keep first empty option)
-            while (taskDateSelect.children.length > 1) {
-                taskDateSelect.removeChild(taskDateSelect.lastChild);
-            }
-            while (goalDateSelect.children.length > 1) {
-                goalDateSelect.removeChild(goalDateSelect.lastChild);
-            }
-            
-            // Add new date options
-            for (let day = 1; day <= daysInMonth; day++) {
-                const dateStr = `${months[month-1]} ${day}`;
-                const dateValue = `${year}-${month}-${day}`;
-                
-                const taskOption = document.createElement('option');
-                taskOption.value = dateValue;
-                taskOption.textContent = dateStr;
-                taskDateSelect.appendChild(taskOption.cloneNode(true));
-                
-                const goalOption = taskOption.cloneNode(true);
-                goalDateSelect.appendChild(goalOption);
-            }
-        }
-        
-        // Add task
-        document.getElementById('add-task').addEventListener('click', function() {
-           
+    <div class="todo-section">
+      <div class="todo-column">
+        <h3>To Do List</h3>
+        <div class="task-input">
+          <select id="task-date">
+            <option value="">Select date</option>
+          </select>
+          <select id="task-priority">
+            <option value="1">Low</option>
+            <option value="2" selected>Medium</option>
+            <option value="3">High</option>
+          </select>
+          <input type="text" id="new-task" placeholder="Task description">
+          <button id="add-task">Add</button>
+        </div>
+        <ul class="task-list" id="tasks-list"></ul>
+      </div>
+
+      <div class="todo-column">
+        <h3>Goals</h3>
+        <div class="task-input">
+          <select id="goal-date">
+            <option value="">Select date</option>
+          </select>
+          <input type="text" id="new-goal" placeholder="Goal description">
+          <button id="add-goal">Add</button>
+        </div>
+        <ul class="task-list" id="goals-list"></ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Enhanced Data Storage with localStorage
+  let tasks = JSON.parse(localStorage.getItem('plannerTasks')) || {};
+  let goals = JSON.parse(localStorage.getItem('plannerGoals')) || {};
+
+  // Initialize month dropdown
+  const months = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
+  const monthSelect = document.getElementById('month-select');
+  const yearSelect = document.getElementById('year-select');
+  const currentDate = new Date();
+
+  // Populate month dropdown
+  months.forEach((month, index) => {
+    const option = document.createElement('option');
+    option.value = index;
+    option.textContent = month;
+    if (index === currentDate.getMonth()) {
+      option.selected = true;
+    }
+    monthSelect.appendChild(option);
+  });
+
+  // Populate year dropdown (current year ±5)
+  const currentYear = currentDate.getFullYear();
+  for (let year = currentYear - 5; year <= currentYear + 5; year++) {
+    const option = document.createElement('option');
+    option.value = year;
+    option.textContent = year;
+    if (year === currentYear) {
+      option.selected = true;
+    }
+    yearSelect.appendChild(option);
+  }
+
+  // Month navigation buttons
+  document.getElementById('prev-month').addEventListener('click', () => {
+    if (monthSelect.value > 0) {
+      monthSelect.value--;
+    } else {
+      monthSelect.value = 11;
+      yearSelect.value--;
+    }
+    generateCalendar();
+  });
+
+  document.getElementById('next-month').addEventListener('click', () => {
+    if (monthSelect.value < 11) {
+      monthSelect.value++;
+    } else {
+      monthSelect.value = 0;
+      yearSelect.value++;
+    }
+    generateCalendar();
+  });
+
+  // Generate calendar days with current day highlight
+  function generateCalendar() {
+    const month = parseInt(monthSelect.value);
+    const year = parseInt(yearSelect.value);
+    const firstDay = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const calendarGrid = document.getElementById('calendar-grid');
+    const today = new Date();
+
+    // Clear existing days (keep headers)
+    while (calendarGrid.children.length > 7) {
+      calendarGrid.removeChild(calendarGrid.lastChild);
+    }
+
+    // Update date dropdowns
+    updateDateDropdowns(daysInMonth);
+
+    // Add empty cells for days before the 1st (Monday-start week)
+    const startOffset = firstDay === 0 ? 6 : firstDay - 1;
+    for (let i = 0; i < startOffset; i++) {
+      calendarGrid.appendChild(document.createElement('div'));
+    }
+
+    // Add day cells
+    for (let day = 1; day <= daysInMonth; day++) {
+      const dayCell = document.createElement('div');
+      dayCell.className = 'day-cell';
+      dayCell.dataset.date = `${year}-${month+1}-${day}`;
+
+      // Highlight current day
+      if (year === today.getFullYear() && month === today.getMonth() && day === today.getDate()) {
+        dayCell.classList.add('current-day');
+      }
+
+      const dayNumber = document.createElement('div');
+      dayNumber.className = 'day-number';
+      dayNumber.textContent = day;
+      dayCell.appendChild(dayNumber);
+
+      // Check if date has tasks
+      const dateKey = `${year}-${month+1}-${day}`;
+      if (tasks[dateKey]?.length || goals[dateKey]?.length) {
+        dayCell.classList.add('has-tasks');
+      }
+
+      calendarGrid.appendChild(dayCell);
+    }
+  }
+
+  // Update date dropdowns
+  function updateDateDropdowns(daysInMonth) {
+    const month = parseInt(monthSelect.value) + 1;
+    const year = parseInt(yearSelect.value);
+
+    const taskDateSelect = document.getElementById('task-date');
+    const goalDateSelect = document.getElementById('goal-date');
+
+    // Clear existing options (keep first empty option)
+    while (taskDateSelect.children.length > 1) {
+      taskDateSelect.removeChild(taskDateSelect.lastChild);
+    }
+    while (goalDateSelect.children.length > 1) {
+      goalDateSelect.removeChild(goalDateSelect.lastChild);
+    }
+
+    // Add new date options
+    for (let day = 1; day <= daysInMonth; day++) {
+      const dateStr = `${months[month-1]} ${day}`;
+      const dateValue = `${year}-${month}-${day}`;
+
+      const taskOption = document.createElement('option');
+      taskOption.value = dateValue;
+      taskOption.textContent = dateStr;
+      taskDateSelect.appendChild(taskOption.cloneNode(true));
+
+      const goalOption = taskOption.cloneNode(true);
+      goalDateSelect.appendChild(goalOption);
+    }
+  }
+
+  // Add task with priority
+  document.getElementById('add-task').addEventListener('click', function() {
+    const date = document.getElementById('task-date').value;
+    const taskText = document.getElementById('new-task').value.trim();
+    const priority = document.getElementById('task-priority').value;
+
+    if (date && taskText) {
+      if (!tasks[date]) tasks[date] = [];
+      tasks[date].push({
+        text: taskText,
+        completed: false,
+        priority: priority
+      });
+      saveData();
+
+      renderLists();
+      updateCalendarHighlights();
+      document.getElementById('new-task').value = '';
+    }
+  });
+
+  // Add goal
+  document.getElementById('add-goal').addEventListener('click', function() {
+    const date = document.getElementById('goal-date').value;
+    const goalText = document.getElementById('new-goal').value.trim();
+
+    if (date && goalText) {
+      if (!goals[date]) goals[date] = [];
+      goals[date].push({
+        text: goalText,
+        completed: false
+      });
+      saveData();
+
+      renderLists();
+      updateCalendarHighlights();
+      document.getElementById('new-goal').value = '';
+    }
+  });
+
+  // Toggle task completion
+  function toggleTaskCompletion(date, index, type) {
+    if (type === 'task') {
+      tasks[date][index].completed = !tasks[date][index].completed;
+    } else {
+      goals[date][index].completed = !goals[date][index].completed;
+    }
+    saveData();
+    renderLists();
+  }
+
+  // Remove task/goal
+  window.removeTask = function(date, index, type) {
+    if (type === 'task') {
+      tasks[date]?.splice(index, 1);
+      if (tasks[date]?.length === 0) delete tasks[date];
+    } else {
+      goals[date]?.splice(index, 1);
+      if (goals[date]?.length === 0) delete goals[date];
+    }
+    saveData();
+    renderLists();
+    updateCalendarHighlights();
+  };
+
+  // Render all tasks and goals with enhanced display
+  function renderLists() {
+    const tasksList = document.getElementById('tasks-list');
+    const goalsList = document.getElementById('goals-list');
+
+    tasksList.innerHTML = '';
+    goalsList.innerHTML = '';
+
+    // Render tasks with priority and completion
+    for (const date in tasks) {
+      tasks[date].forEach((task, index) => {
+        const taskItem = document.createElement('li');
+        taskItem.className = `task-item priority-${task.priority} ${task.completed ? 'completed' : ''}`;
+        taskItem.innerHTML = `
+            <span class="task-checkbox" onclick="toggleTaskCompletion('${date}', ${index}, 'task')">
+              ${task.completed ? '✓' : ''}
+            </span>
+            <span class="task-text">${task.text}</span>
+            <span class="date-indicator">${formatDateDisplay(date)}</span>
+            <span class="task-priority">${getPriorityLabel(task.priority)}</span>
+            <span class="task-delete" onclick="removeTask('${date}', ${index}, 'task')">×</span>
+          `;
+        tasksList.appendChild(taskItem);
+      });
+    }
+
+    // Render goals with completion
+    for (const date in goals) {
+      goals[date].forEach((goal, index) => {
+        const goalItem = document.createElement('li');
+        goalItem.className = `task-item ${goal.completed ? 'completed' : ''}`;
+        goalItem.innerHTML = `
+            <span class="task-checkbox" onclick="toggleTaskCompletion('${date}', ${index}, 'goal')">
+              ${goal.completed ? '✓' : ''}
+            </span>
+            <span class="task-text">${goal.text}</span>
+            <span class="date-indicator">${formatDateDisplay(date)}</span>
+            <span class="task-delete" onclick="removeTask('${date}', ${index}, 'goal')">×</span>
+          `;
+        goalsList.appendChild(goalItem);
+      });
+    }
+  }
+
+  // Helper function to get priority label
+  function getPriorityLabel(priority) {
+    switch(priority) {
+      case '1': return 'Low';
+      case '2': return 'Medium';
+      case '3': return 'High';
+      default: return '';
+    }
+  }
+
+  // Update calendar highlights
+  function updateCalendarHighlights() {
+    document.querySelectorAll('.day-cell').forEach(cell => {
+      cell.classList.remove('has-tasks');
+      const date = cell.dataset.date;
+      if ((tasks[date]?.length || goals[date]?.length) && date) {
+        cell.classList.add('has-tasks');
+      }
+    });
+  }
+
+  // Format date for display
+  function formatDateDisplay(dateStr) {
+    const [year, month, day] = dateStr.split('-');
+    return `${months[parseInt(month)-1]} ${parseInt(day)}`;
+  }
+
+  // Save data to localStorage
+  function saveData() {
+    localStorage.setItem('plannerTasks', JSON.stringify(tasks));
+    localStorage.setItem('plannerGoals', JSON.stringify(goals));
+  }
+
+  // Initialize calendar
+  generateCalendar();
+  renderLists();
+
+  // Update calendar when month/year changes
+  monthSelect.addEventListener('change', generateCalendar);
+  yearSelect.addEventListener('change', generateCalendar);
+</script>
+</body>
+</html>
