@@ -117,6 +117,10 @@
 
     // Initialize journal on load
     loadJournal();
+    function loadJournal() {
+      const savedEntry = localStorage.getItem('journalEntry');
+      journalTextarea.value = savedEntry || ""; // Show empty if no saved content
+    }
   });
 </script>
 
