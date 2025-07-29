@@ -7,15 +7,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 
-  <script>
-    // Add this JavaScript
-    document.getElementById('download-pdf').addEventListener('click', function() {
-      const { jsPDF } = window.jspdf;
-      const doc = new jsPDF();
-      doc.text("Hello World!", 10, 10);
-      doc.save('test.pdf');
-    });
-  </script>
+
 </head>
 <body>
 <!-- ==================== MENU BAR ==================== -->
@@ -23,7 +15,7 @@
   <div class="menu-items">
     <a href="index.html">Home</a>
     <div class="dropdown">
-      <a href="#" class="dropbtn">Planner</a>
+      <a href="daily_planner.html" class="dropbtn">Planner</a>
       <div class="dropdown-content">
         <a href="daily_planner.html" onclick="openTab(event,'Daily')">Daily Planner</a>
         <a href="weekly_planner.html" onclick="openTab(event,'Weekly')">Weekly Planner</a>
@@ -54,11 +46,9 @@
 </div>
 
 
-
-
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    // DOM Elements
+    // ==================== JOURNAL SAVING FUNCTIONALITY ====================
     const journalTextarea = document.getElementById('journal-textarea');
     const saveStatus = document.getElementById('save-status');
 
@@ -74,58 +64,42 @@
     function saveJournal() {
       localStorage.setItem('journalEntry', journalTextarea.value);
       saveStatus.textContent = "Saved!";
-      saveStatus.style.color = "#4CAF50"; // Green
-
-      // Clear status after 2 seconds
-      setTimeout(() => {
-        saveStatus.textContent = "";
-      }, 2000);
+      saveStatus.style.color = "#4CAF50";
+      setTimeout(() => { saveStatus.textContent = ""; }, 2000);
     }
 
-    // Auto-save every 30 seconds when content changes
+    // Auto-save when typing stops for 30 seconds
     let autoSaveTimer;
     journalTextarea.addEventListener('input', () => {
+      saveStatus.textContent = "Unsaved changes...";
+      saveStatus.style.color = "#8f807a";
       clearTimeout(autoSaveTimer);
-      autoSaveTimer = setTimeout(saveJournal, 30000); // 30-second delay
+      autoSaveTimer = setTimeout(saveJournal, 30000);
     });
 
-    // Optional: Manual save button (add this HTML if needed)
-    // <button id="manual-save-btn" class="save-btn">Save Now</button>
-    const manualSaveBtn = document.getElementById('manual-save-btn');
-    if (manualSaveBtn) {
-      manualSaveBtn.addEventListener('click', saveJournal);
-    }
-
-    // Initialize
-    loadJournal();
-  });
-
-  document.addEventListener('DOMContentLoaded', function() {
-    const { jsPDF } = window.jspdf;
-    const downloadBtn = document.getElementById('download-pdf');
-    const journalContent = document.getElementById('journal-textarea');
-
-    downloadBtn.addEventListener('click', function() {
+    // ==================== PDF EXPORT FUNCTIONALITY ====================
+    document.getElementById('download-pdf').addEventListener('click', function() {
+      const { jsPDF } = window.jspdf;
       const doc = new jsPDF();
 
       // PDF styling
       doc.setFont('helvetica');
       doc.setFontSize(16);
-      doc.setTextColor(77, 71, 71); // Your #4d4747 color
+      doc.setTextColor(77, 71, 71); // #4d4747 color
       doc.text("My Journal Entry", 105, 20, { align: 'center' });
 
-      // Add decorative line
-      doc.setDrawColor(143, 128, 122); // Your #8f807a color
+      // Decorative line
+      doc.setDrawColor(143, 128, 122); // #8f807a color
       doc.setLineWidth(0.5);
       doc.line(20, 25, 190, 25);
 
-      // Journal content
+      // Journal content (with word wrapping)
       doc.setFontSize(12);
       doc.setTextColor(0, 0, 0);
-      const lines = doc.splitTextToSize(journalContent.value, 170);
+      const lines = doc.splitTextToSize(journalTextarea.value || "No content yet", 170);
       doc.text(lines, 20, 35);
 
-      // Footer
+      // Footer with date
       doc.setFontSize(10);
       doc.setTextColor(100);
       const today = new Date().toLocaleDateString('en-US', {
@@ -134,13 +108,19 @@
         month: 'long',
         day: 'numeric'
       });
-      doc.text(`Saved from Mindful Moments Journal Created by Javeria Javaid- ${today}`, 105, 285, { align: 'center' });
+      doc.text(`Saved from Mindful Moments Journal - ${today}`, 105, 285, {
+        align: 'center'
+      });
 
       doc.save(`journal-${new Date().toISOString().slice(0,10)}.pdf`);
     });
-  });
 
+    // Initialize journal on load
+    loadJournal();
+  });
 </script>
+
+
 
 
 </body>
