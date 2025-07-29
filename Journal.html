@@ -48,19 +48,18 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    // ==================== JOURNAL SAVING FUNCTIONALITY ====================
+    // ==================== DOM ELEMENTS ====================
     const journalTextarea = document.getElementById('journal-textarea');
     const saveStatus = document.getElementById('save-status');
+    const downloadBtn = document.getElementById('download-pdf');
 
-    // Load saved journal entry
+    // ==================== JOURNAL FUNCTIONS ====================
     function loadJournal() {
       const savedEntry = localStorage.getItem('journalEntry');
-      if (savedEntry) {
-        journalTextarea.value = savedEntry;
-      }
+      // Only set value if content exists, otherwise keep empty (shows placeholder)
+      journalTextarea.value = savedEntry || '';
     }
 
-    // Save to localStorage
     function saveJournal() {
       localStorage.setItem('journalEntry', journalTextarea.value);
       saveStatus.textContent = "Saved!";
@@ -68,7 +67,8 @@
       setTimeout(() => { saveStatus.textContent = ""; }, 2000);
     }
 
-    // Auto-save when typing stops for 30 seconds
+    // ==================== EVENT LISTENERS ====================
+    // Auto-save with visual feedback
     let autoSaveTimer;
     journalTextarea.addEventListener('input', () => {
       saveStatus.textContent = "Unsaved changes...";
@@ -77,29 +77,32 @@
       autoSaveTimer = setTimeout(saveJournal, 30000);
     });
 
-    // ==================== PDF EXPORT FUNCTIONALITY ====================
-    document.getElementById('download-pdf').addEventListener('click', function() {
+    // PDF Export with proper empty state handling
+    downloadBtn.addEventListener('click', function() {
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF();
 
-      // PDF styling
+      // Header
       doc.setFont('helvetica');
       doc.setFontSize(16);
-      doc.setTextColor(77, 71, 71); // #4d4747 color
+      doc.setTextColor(77, 71, 71);
       doc.text("My Journal Entry", 105, 20, { align: 'center' });
 
       // Decorative line
-      doc.setDrawColor(143, 128, 122); // #8f807a color
+      doc.setDrawColor(143, 128, 122);
       doc.setLineWidth(0.5);
       doc.line(20, 25, 190, 25);
 
-      // Journal content (with word wrapping)
+      // Content - uses either journal text or placeholder
+      const contentToExport = journalTextarea.value.trim() ||
+        "Write your thoughts, reminders, or ideas here...";
+
       doc.setFontSize(12);
       doc.setTextColor(0, 0, 0);
-      const lines = doc.splitTextToSize(journalTextarea.value || "No content yet", 170);
+      const lines = doc.splitTextToSize(contentToExport, 170);
       doc.text(lines, 20, 35);
 
-      // Footer with date
+      // Footer
       doc.setFontSize(10);
       doc.setTextColor(100);
       const today = new Date().toLocaleDateString('en-US', {
@@ -115,12 +118,8 @@
       doc.save(`journal-${new Date().toISOString().slice(0,10)}.pdf`);
     });
 
-    // Initialize journal on load
+    // Initialize
     loadJournal();
-    function loadJournal() {
-      const savedEntry = localStorage.getItem('journalEntry');
-      journalTextarea.value = savedEntry || ""; // Show empty if no saved content
-    }
   });
 </script>
 
